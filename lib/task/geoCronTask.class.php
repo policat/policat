@@ -162,6 +162,10 @@ class geoCronTask extends sfBaseTask {
         }
       }
 
+      if ($i > 0) {
+        PetitionTable::getInstance()->listEmailsSentIncrement($petition_signing->getPetitionId(), $i);
+      }
+
       $petition_signing->save();
 
       echo "$i mails sent. [$id:$waves_sent] (continue)";
