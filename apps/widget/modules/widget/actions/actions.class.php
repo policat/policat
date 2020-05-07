@@ -416,7 +416,7 @@ class widgetActions extends policatActions
     /* @var $petition_text PetitionText */
 
     $this->numberSeparator = $petition_text->utilCultureInfo()->getNumberFormat()->getGroupSeparator();
-    if ($petition->getKind() == Petition::KIND_EMAIL_TO_LIST && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) {
+    if (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) {
       $this->count = $petition->countMailsSent() + $petition->getAddnumEmailCounter();
       $this->count_translation = '# emails sent';
       $this->target = $this->count . '-' . Petition::calcTarget($this->count, $petition->getTargetNumEmailCounter());

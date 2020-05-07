@@ -17,7 +17,7 @@
 <p>
   You can update your counter with signings collected elsewhere, whether in other e-petition systems, or at offline
   events or canvassing. A simple method is to tweak the overall counter manually by adding a number into the
-  "Sign-on counter start" field. Another option is to let your partners update your counter with their data
+  "Participant counter, manual tweak" field. Another option is to let your partners update your counter with their data
   automatically, via our <a href="<?php echo url_for('api_v2_doc') ?>">API</a>. Create a token for each organisation
   you want to allow to add their counts to your counter.
 </p>
