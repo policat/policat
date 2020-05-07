@@ -264,7 +264,7 @@ if (is_array($target_selectors)) {
                               </p>
                             <?php endif ?>
                             <?php if (!$disabled):
-                              $count_translation = ($petition->getKind() == Petition::KIND_EMAIL_TO_LIST && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
+                              $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
                               ?>
                               <div id="count" class="count<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
                                   <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>

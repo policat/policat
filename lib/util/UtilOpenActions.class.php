@@ -130,10 +130,10 @@ class UtilOpenActions {
         $number = $count;
         $target = Petition::calcTarget($count, $petition['target_num']);
 
-        $counter_type = ($petition->getKind() == Petition::KIND_EMAIL_TO_LIST && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? 'emails' : 'participants';
+        $counter_type = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? 'emails' : 'participants';
         $counter_value = $counter_type === 'emails' ? $petition->countMailsSent() + $petition->getAddnumEmailCounter() : $count;
 
-        if ($petition['kind'] == Petition::KIND_EMAIL_TO_LIST && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) {
+        if (in_array($petition['kind'], [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) {
             $number = $petition->countMailsSent() + $petition->getAddnumEmailCounter();
             $target = Petition::calcTarget($number, $petition->getTargetNumEmailCounter());
         }
