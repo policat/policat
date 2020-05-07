@@ -428,10 +428,4 @@ class PetitionTable extends Doctrine_Table {
     }
   }
 
-  public function listEmailsSentIncrement($petition_id, $emails = 1) {
-    if ($petition_id && $emails > 0 && is_int($emails)) {
-      $this->getConnection()->exec('update `petition` set list_emails_sent = list_emails_sent + ? where id = ?', array($emails, $petition_id));
-    }
-  }
-
 }

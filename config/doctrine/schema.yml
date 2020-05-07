@@ -264,7 +264,6 @@ Petition:
     validation_required:  { type: integer(4), notnull: true, default: 1 }
     name:                 { type: string,     notnull: true }
     addnum:               { type: integer(4), notnull: true, default: 0}
-    list_emails_sent:     { type: integer(4), notnull: true, default: 0}
     addnote:              { type: clob }
     read_more_url:        { type: string }
     landing_url:          { type: string }

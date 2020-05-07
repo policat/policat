@@ -35,7 +35,6 @@ class EditPetitionForm extends PetitionFieldsForm {
     unset($this['label_mode'], $this['follow_petition_id'], $this['addnum'], $this['target_num'], $this['keywords_subst'], $this['addnum_email_counter'], $this['target_num_email_counter']);
     unset($this['digest_enabled'], $this['pledge_sort_column'], $this['mailexport'], $this['mailexport_enabled']);
     unset($this['openeci_counter_total'], $this['openeci_counter_countries'], $this['privacy_policy_by_widget_data_owner']);
-    unset($this['list_emails_sent']);
 
     $this->configure_fields();
 

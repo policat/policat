@@ -15,7 +15,6 @@
  * @property int                                     $validation_required                             Type: integer(4), default "1"
  * @property string                                  $name                                            Type: string
  * @property int                                     $addnum                                          Type: integer(4)
- * @property int                                     $list_emails_sent                                Type: integer(4)
  * @property string                                  $addnote                                         Type: clob
  * @property string                                  $read_more_url                                   Type: string
  * @property string                                  $landing_url                                     Type: string
@@ -121,7 +120,6 @@
  * @method int                                       getValidationRequired()                          Type: integer(4), default "1"
  * @method string                                    getName()                                        Type: string
  * @method int                                       getAddnum()                                      Type: integer(4)
- * @method int                                       getListEmailsSent()                              Type: integer(4)
  * @method string                                    getAddnote()                                     Type: clob
  * @method string                                    getReadMoreUrl()                                 Type: string
  * @method string                                    getLandingUrl()                                  Type: string
@@ -227,7 +225,6 @@
  * @method Petition                                  setValidationRequired(int $val)                  Type: integer(4), default "1"
  * @method Petition                                  setName(string $val)                             Type: string
  * @method Petition                                  setAddnum(int $val)                              Type: integer(4)
- * @method Petition                                  setListEmailsSent(int $val)                      Type: integer(4)
  * @method Petition                                  setAddnote(string $val)                          Type: clob
  * @method Petition                                  setReadMoreUrl(string $val)                      Type: string
  * @method Petition                                  setLandingUrl(string $val)                       Type: string
@@ -384,12 +381,6 @@ abstract class BasePetition extends myDoctrineRecord
              'notnull' => true,
              ));
         $this->hasColumn('addnum', 'integer', 4, array(
-             'type' => 'integer',
-             'notnull' => true,
-             'default' => 0,
-             'length' => 4,
-             ));
-        $this->hasColumn('list_emails_sent', 'integer', 4, array(
              'type' => 'integer',
              'notnull' => true,
              'default' => 0,
