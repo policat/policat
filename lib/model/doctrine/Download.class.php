@@ -137,20 +137,14 @@ class Download extends BaseDownload {
     $used_fields = array(
         'created_at' => 0,
         'updated_at' => 1,
-        'status' => 2,
-        'verified' => 3
+        'status' => 2
     );
     $blank = array('', '', '');
     $widget_id_to_language_id = array();
 
-    if ($subscribers) {
-      $used_fields['bounce_at'] = count($used_fields);
-      $used_fields['bounce_blocked'] = count($used_fields);
-      $used_fields['bounce_hard'] = count($used_fields);
-      $used_fields['bounce_error'] = count($used_fields);
-      $used_fields['bounce_related_to'] = count($used_fields);
+    if (!$subscribers) {
+      $used_fields['verified'] = count($used_fields);
     }
-
     if ($petition->getKind() == Petition::KIND_OPENECI) {
       $used_fields['thank you page shown'] = count($used_fields);
     }
@@ -168,14 +162,6 @@ class Download extends BaseDownload {
       $status = (int) $petition_signing['status'];
       $cell[2] = array_key_exists($status, PetitionSigning::$STATUS_SHOW) ? PetitionSigning::$STATUS_SHOW[$status] : $status;
       $cell[3] = $petition_signing['verified'] == Petition::VALIDATION_REQUIRED_YES ? 'yes' : 'no';
-
-      if ($subscribers) {
-        $cell[$used_fields['bounce_at']] = $petition_signing['bounce_at'];
-        $cell[$used_fields['bounce_blocked']] = $petition_signing['bounce_blocked'];
-        $cell[$used_fields['bounce_hard']] = $petition_signing['bounce_hard'];
-        $cell[$used_fields['bounce_error']] = $petition_signing['bounce_related_to'];
-        $cell[$used_fields['bounce_related_to']] = $petition_signing['bounce_error'];
-      }
 
       if ($petition->getKind() == Petition::KIND_OPENECI) {
         $cell[$used_fields['thank you page shown']] = $petition_signing['ref_shown'] ? 'yes' : 'no';

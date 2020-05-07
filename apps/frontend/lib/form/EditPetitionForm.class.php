@@ -203,7 +203,7 @@ class EditPetitionForm extends PetitionFieldsForm {
 
     if ($this->getObject()->getKind() == Petition::KIND_PETITION || $this->getObject()->getKind() == Petition::KIND_OPENECI) {
       $this->setWidget('validation_required', new sfWidgetFormChoice(array(
-          'choices' => array(Petition::VALIDATION_REQUIRED_YES => 'Yes. Email verification required to count signing.', Petition::VALIDATION_REQUIRED_NO => 'Yes. Email verification not required to count signing.', Petition::VALIDATION_REQUIRED_YES_IF_SUBSCRIBE => 'Only to subscribers ("keep me posted"). Email verification *not* required to access opted-in email addresses.'),
+          'choices' => array(Petition::VALIDATION_REQUIRED_YES => 'Yes. Email verification required to count signing.', Petition::VALIDATION_REQUIRED_NO => 'Yes. Email verification not required to count signing.', Petition::VALIDATION_REQUIRED_YES_IF_SUBSCRIBE => 'Only to subscribers ("keep me posted"). Email verification required to access opted-in email addresses.'),
           'label' => 'Send confirmation (opt-in) email to verify email address'
         ), array(
           'class' => 'add_popover',

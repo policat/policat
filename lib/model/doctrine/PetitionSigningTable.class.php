@@ -227,6 +227,7 @@ class PetitionSigningTable extends Doctrine_Table {
   private function andQuerySubscriber($query, $user = null, $subscriber = true, $alias = 'ps') {
     if ($subscriber) {
       $query->andWhere("$alias.subscribe = ?", PetitionSigning::SUBSCRIBE_YES);
+      $query->andWhere("$alias.verified = ?", PetitionSigning::VERIFIED_YES); // show only verified subscriptions
 
       $widget_ids_sub_query = $query->copy()
         ->orderBy("$alias.widget_id")
