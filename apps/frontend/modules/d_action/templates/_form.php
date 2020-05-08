@@ -68,7 +68,7 @@
                 </fieldset>
                 <fieldset class="tab-pane show-before-chosen-init" id="sec6">
                     <legend>Widgets</legend>
-                    <?php echo $form->renderRows('show_email_counter*', 'widget_individualise', 'themeId', 'style_font_family') ?>
+                    <?php echo $form->renderRows('widget_individualise', 'themeId', 'style_font_family') ?>
                     <div class="row">
                         <div class="col-md-6">
                             <?php echo $form->renderRows('style_bg_right_color', 'style_bg_left_color', 'style_button_primary_color', 'style_button_color') ?>
@@ -77,7 +77,7 @@
                             <?php echo $form->renderRows('style_title_color', 'style_form_title_color', 'style_body_color', 'style_label_color') ?>
                         </div>
                     </div>
-                    <?php echo $form->renderRows('share', 'show_embed', 'key_visual', 'show_target', 'show_keyvisual', 'last_signings') ?>
+                    <?php echo $form->renderRows('share', 'show_embed', 'key_visual', 'show_target', 'show_email_counter*', 'show_keyvisual', 'last_signings') ?>
                     <div id="last-signings-options" class="show-before-chosen-init">
                         <?php echo $form->renderRows('last_signings_city', 'last_signings_country') ?>
                     </div>
