@@ -36,7 +36,7 @@ class QuotaForm extends BaseQuotaForm {
       array('choices' => array_keys(QuotaTable::$STATUS_SHOW)
     )));
 
-    if (StoreTable::value(StoreTable::BILLING_SUBSCRIPTION_ENABLE) && $this->getObject()->getProductId() && $this->getObject()->getProduct()->getSubscription()) {
+    if (StoreTable::value(StoreTable::BILLING_SUBSCRIPTION_ENABLE)) {
       $this->setWidget('subscription', new sfWidgetFormChoice(array(
           'choices' => array(0 => 'no', 1 => 'yes'),
           'label' => 'Auto-Renewal'
