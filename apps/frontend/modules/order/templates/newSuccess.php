@@ -9,6 +9,7 @@
 <form class="ajax_form form-horizontal" action="<?php echo url_for('order_new', array('id' => $campaign->getId())) ?>" method="post">
     <legend>Select a package</legend>
     <?php echo $form->renderRows(array('product')) ?>
+    <?php echo $form->renderRows(array('autorenewal')) ?>
     <legend>Billing address</legend>
     <?php echo $form->renderOtherRows(); echo $form->renderHiddenFields() ?>
     <div class="form-actions">

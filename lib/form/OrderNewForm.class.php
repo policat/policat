@@ -33,6 +33,12 @@ class OrderNewForm extends OrderForm {
       $this->setValidator('product', new sfValidatorChoice(array(
           'choices' => array_keys($this->getProductChoices())
       )));
+
+      $this->setWidget('autorenewal', new sfWidgetFormInputCheckbox([
+        'label' => 'Auto-Renewal'
+      ], ['value'=>1]));
+
+      $this->setValidator('autorenewal', new sfValidatorBoolean());
     }
 
     foreach (array('first_name', 'last_name', 'organisation', 'street', 'city', 'post_code') as $field) {
@@ -111,6 +117,7 @@ class OrderNewForm extends OrderForm {
       $quota = new Quota();
       $quota->setUser($order->getUser());
       $quota->copyProduct($product);
+      $quota->setSubscription($this->getValue('autorenewal'));
       if ($product->isNew()) {
         $quota->setUpgradeOf($campaign->getQuota());
       }
