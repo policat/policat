@@ -16,6 +16,7 @@
               <?php echo $quota->getStatusName() ?>
             </td>
             <td>
+                Auto-Renewal: <?php echo $quota->getSubscription() ? 'Active' : 'Inactive' ?><br>
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
                   <a class="btn btn-secondary btn-sm" href="<?php echo url_for('quota_edit', array('id' => $quota->getId())) ?>">edit</a>
                 <?php endif ?>
