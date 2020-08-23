@@ -9,7 +9,12 @@
 <form class="ajax_form form-horizontal" action="<?php echo url_for('order_new', array('id' => $campaign->getId())) ?>" method="post">
     <legend>Select a package</legend>
     <?php echo $form->renderRows(array('product')) ?>
-    <?php echo $form->renderRows(array('autorenewal')) ?>
+    <div class="neworder__block--autorenew">
+      <?php echo $form->renderRows(array('autorenewal')) ?>
+      <p>
+        Buy your package with auto-renewal to ensure that your actions continue if your package expires or if you run out of credit. You will get a notification a few days before your package expires or runs out of credit and a new package order (of the same size) will be created. Make sure to pay online or let us know if your bank transfer is delayed.
+      </p>
+    </div>
     <legend>Billing address</legend>
     <?php echo $form->renderOtherRows(); echo $form->renderHiddenFields() ?>
     <div class="form-actions">

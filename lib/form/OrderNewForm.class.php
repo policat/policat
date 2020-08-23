@@ -36,7 +36,7 @@ class OrderNewForm extends OrderForm {
 
       $this->setWidget('autorenewal', new sfWidgetFormInputCheckbox([
         'label' => 'Auto-Renewal'
-      ], ['value'=>1]));
+      ], ['value'=>1, 'checked' => 'checked', 'class' => 'neworder__checkbox--autorenew']));
 
       $this->setValidator('autorenewal', new sfValidatorBoolean());
     }
