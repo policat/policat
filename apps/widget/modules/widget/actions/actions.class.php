@@ -203,7 +203,7 @@ class widgetActions extends policatActions
 
           $con = $search_table->getConnection();
           $ref = $this->form->getValue(Petition::FIELD_REF);
-          if (!(strpos($ref, 'http://') === 0 || strpos($ref, 'http://') === 0)) {
+          if (!(strpos($ref, 'http://') === 0 || strpos($ref, 'https://') === 0)) {
             $ref = null;
           }
           $sql_time = gmdate('Y-m-d H:i:s');
