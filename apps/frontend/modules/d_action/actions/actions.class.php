@@ -571,6 +571,9 @@ class d_actionActions extends policatActions {
     }
 
     $validation_email = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::SIGNING_VALIDATION_EMAIL, $value);
+    if (!$validation_email) {
+      $validation_email = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::SIGNING_VALIDATION_EMAIL, 'en');
+    }
     if ($validation_email) {
       $this->ajax()->val('#' . $form_name . '_email_validation_subject', $validation_email->getField('subject', ''));
       $this->ajax()
@@ -579,6 +582,9 @@ class d_actionActions extends policatActions {
     }
 
     $thankyou_email = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::SIGNING_THANK_YOU_EMAIL, $value);
+    if (!$thankyou_email) {
+      $thankyou_email = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::SIGNING_THANK_YOU_EMAIL, 'en');
+    }
     if ($thankyou_email) {
       $this->ajax()->val('#' . $form_name . '_thank_you_email_subject', $thankyou_email->getField('subject', ''));
       $this->ajax()
@@ -587,6 +593,9 @@ class d_actionActions extends policatActions {
     }
 
     $tellyourfriend_email = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::ACTION_TELL_YOUR_FRIEND_EMAIL, $value);
+    if (!$tellyourfriend_email) {
+      $tellyourfriend_email = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::ACTION_TELL_YOUR_FRIEND_EMAIL, 'en');
+    }
     if ($tellyourfriend_email) {
       $this->ajax()->val('#' . $form_name . '_email_tellyour_subject', $tellyourfriend_email->getField('subject', ''));
       $this->ajax()
@@ -601,6 +610,9 @@ class d_actionActions extends policatActions {
         ->trigger('#' . $form_name . '_privacy_policy_body', 'change'); // resize
     } else {
       $privacy = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::ACTION_PRIVACY_POLICY, $value);
+      if (!$privacy) {
+        $privacy = StoreTable::getInstance()->findByKeyAndLanguage(StoreTable::ACTION_PRIVACY_POLICY, 'en');
+      }
       if ($privacy) {
         $this->ajax()
           ->val('#' . $form_name . '_privacy_policy_body', $privacy->getField('body', ''))
