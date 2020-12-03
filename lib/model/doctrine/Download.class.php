@@ -21,7 +21,7 @@
  */
 class Download extends BaseDownload {
 
-  const PAGE_SIZE = 10000;
+  const PAGE_SIZE = 5000;
 
   public static $EXCLUDE = array(
       false => array(
