@@ -44,6 +44,7 @@
  * @property string                                     $social_share_text                               Type: clob
  * @property int                                        $cron_signings24                                 Type: integer(4)
  * @property string                                     $default_country                                 Type: string(5)
+ * @property string                                     $show_counter                                    Type: string(15), default "signup"
  * @property int                                        $subscribe_default                               Type: integer(1), default "-1"
  * @property string                                     $subscribe_text                                  Type: string(250)
  * @property string                                     $privacy_policy_body                             Type: clob
@@ -108,6 +109,7 @@
  * @method string                                       getSocialShareText()                             Type: clob
  * @method int                                          getCronSignings24()                              Type: integer(4)
  * @method string                                       getDefaultCountry()                              Type: string(5)
+ * @method string                                       getShowCounter()                                 Type: string(15), default "signup"
  * @method int                                          getSubscribeDefault()                            Type: integer(1), default "-1"
  * @method string                                       getSubscribeText()                               Type: string(250)
  * @method string                                       getPrivacyPolicyBody()                           Type: clob
@@ -172,6 +174,7 @@
  * @method Widget                                       setSocialShareText(string $val)                  Type: clob
  * @method Widget                                       setCronSignings24(int $val)                      Type: integer(4)
  * @method Widget                                       setDefaultCountry(string $val)                   Type: string(5)
+ * @method Widget                                       setShowCounter(string $val)                      Type: string(15), default "signup"
  * @method Widget                                       setSubscribeDefault(int $val)                    Type: integer(1), default "-1"
  * @method Widget                                       setSubscribeText(string $val)                    Type: string(250)
  * @method Widget                                       setPrivacyPolicyBody(string $val)                Type: clob
@@ -373,6 +376,12 @@ abstract class BaseWidget extends myDoctrineRecord
              'notnull' => true,
              'default' => '',
              'length' => 5,
+             ));
+        $this->hasColumn('show_counter', 'string', 15, array(
+             'type' => 'string',
+             'notnull' => true,
+             'default' => 'signup',
+             'length' => 15,
              ));
         $this->hasColumn('subscribe_default', 'integer', 1, array(
              'type' => 'integer',

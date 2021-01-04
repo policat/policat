@@ -26,7 +26,7 @@
     echo $form->renderRows('*background');
     ?>
     <legend>Widget customization</legend>
-    <?php echo $form->renderRows('styling_type', 'styling_width', '*default_country', '*themeId', '*styling_font_family'); ?>
+    <?php echo $form->renderRows('styling_type', 'styling_width', '*default_country', '*themeId', '*styling_font_family', '*show_counter'); ?>
     <div class="row">
         <div class="col-md-6"><?php echo $form->renderRows('*styling_bg_right_color', '*styling_bg_left_color', '*styling_button_primary_color', '*styling_button_color') ?></div>
         <div class="col-md-6"><?php echo $form->renderRows('*styling_title_color', '*styling_form_title_color', '*styling_body_color', '*styling_label_color') ?></div>

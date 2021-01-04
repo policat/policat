@@ -278,6 +278,7 @@ $(document).ready(function($) {
 				widget.addClass('right-only');
 			}
 			$('.share').after($('.last-signings'));
+			renderCounter('thankyou');
 			resize();
 			fetchLastSigners(1, 30);
 		}
@@ -393,30 +394,38 @@ $(document).ready(function($) {
 			widget.addClass('has_sign');
 		}
 
-		if (count) {
-			var c = count.split('-');
-			if (c.length >= 2) {
-				var a = parseInt(c[0]);
-				var b = parseInt(c[1]);
-				var p = Math.ceil(a / b * 100);
-				var el_count = $('#count .count-count');
-				var el_target = $('#count .count-target');
-				$('#count .count-target-number').text(numberWithCommas(b));
-				el_count.text(el_count.first().text().replace('#', numberWithCommas(a)));
-				el_target.text(el_target.first().text().replace('#', numberWithCommas(b)));
-				if (p > 30) {
-					$('#count .count-bar span').css({'color': 'white', 'width': p + '%', 'margin-left': '-4px'});
+		function renderCounter(context) {
+			var hash_parts = window.location.hash.substring(1).split('!');
+			var count = decodeURIComponent(hash_parts[2]);
+			var countId = 'thankyou' === context ? '#count--thankyou': '#count';
+			var increaseCount = 'thankyou' === context;
+			if (count) {
+				var c = count.split('-');
+				if (c.length >= 2) {
+					var a = parseInt(c[0]);
+					if (increaseCount) a++;
+					var b = parseInt(c[1]);
+					var p = Math.ceil(a / b * 100);
+					var el_count = $(countId + ' .count-count');
+					var el_target = $(countId + ' .count-target');
+					$(countId + ' .count-target-number').text(numberWithCommas(b));
+					el_count.text(el_count.first().text().replace('#', numberWithCommas(a)));
+					el_target.text(el_target.first().text().replace('#', numberWithCommas(b)));
+					if (p > 30) {
+						$(countId + ' .count-bar span').css({'color': 'white', 'width': p + '%', 'margin-left': '-4px'});
+					} else {
+						$(countId + ' .count-bar span').css({'text-align': 'left', 'margin-left': p + '%'});
+					}
+					$(countId + ' .count-bar div').animate({'width': p + '%'}, 2500, 'swing', function () {
+						$(countId + ' .count-bar span').html(numberWithCommas(a));
+					});
 				}
-				else {
-					$('#count .count-bar span').css({'text-align': 'left', 'margin-left': p + '%'});
-				}
-				$('#count .count-bar div').animate({'width': p + '%'}, 2500, 'swing', function() {
-					$('#count .count-bar span').html(numberWithCommas(a));
-				});
+			} else {
+				$(countId).hide();
 			}
 		}
-		else
-			$('#count').hide();
+
+		renderCounter();
 
 		$('a.facebook, a.whatsapp, a.twitter, a.gplus').each(function() {
 			if ($(this).hasClass('twitter'))

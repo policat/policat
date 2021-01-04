@@ -58,6 +58,15 @@ class EditWidgetForm extends WidgetForm {
     $this->setDefault('styling_type', $this->getObject()->getStyling('type', 'embed'));
     $this->getWidgetSchema()->setLabel('styling_type', 'Widget type');
 
+    $this->setWidget('show_counter', new sfWidgetFormChoice(['choices' => [
+      'signup' => 'On sign-up page',
+      'signup_thankyou' => 'On sign-up page and thank you page',
+      'hide' => 'Don\'t show'
+    ]]));
+    $this->setValidator('show_counter', new sfValidatorChoice(['choices' => ['signup', 'signup_thankyou', 'hide']]));
+    $this->setDefault('show_counter', 'signup');
+    $this->getWidgetSchema()->setLabel('show_counter', 'Show counter');
+
     $choices = $this->getWidthChoices();
     $this->setWidget('styling_width', new sfWidgetFormChoice(array('choices' => $choices), array(
         'class' => 'add_popover',

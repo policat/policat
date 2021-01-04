@@ -226,20 +226,6 @@ if (is_array($target_selectors)) {
 
                 <div id="widget-right" class="widget-right show-sign">
                     <div id="content-right" class="content-right">
-                        <div class="thankyou">
-                            <h2 class="title-color"><?php echo __('Thank you') ?></h2>
-                            <?php if ($openECI): ?>
-                            <div class="openECI-message"><span class="eci-duplicate"><?php echo __("Attention: You've already taken part in this action (maybe on another website).") ?></span><span class="eci-success"><?php echo __('Your statement of support has been submitted successfully.') ?></span> <?php echo __('Signature identifier') ?>: <span class="eci-number"></span>. <span class="eci-tell"><?php echo __('Use this moment to tell friends and family.') ?></span><span class="eci-please-sign-policat"><?php echo __('Sign up and become part of the movement.') ?></span></div>
-                            <?php endif ?>
-                            <p class="form_message label_color">
-                                <?php /* This can be overwritten by js through, see policat_widget.js and _json_form.php */ ?>
-                                <span class="verified-message">
-                                    <?php echo __('You verified your email address.') ?>
-                                    <span class="verified-message-tell"><?php echo __('Use this moment to tell friends and family.') ?></span>
-                                    <?php if ($openECI): ?><span class="verified-message-sign-eci"><?php echo __('Take a moment to support the European Citizen Initiative.') ?></span><?php endif ?>
-                                </span>
-                            </p>
-                        </div>
                         <div class="sign">
                             <h2 class="form-title title-color"><?php echo trim(Util::enc($petition_text->getFormTitle(), array('\n' => '<br />'))) ? : __($petition->getLabel(PetitionTable::LABEL_TITLE)) ?></h2>
                             <?php
@@ -263,7 +249,7 @@ if (is_array($target_selectors)) {
                                   <a target="_blank" href="<?php echo url_for('homepage') ?>"><?php echo __('More actions') ?></a>
                               </p>
                             <?php endif ?>
-                            <?php if (!$disabled):
+                            <?php if (!$disabled && 'hide' !== $widget->getShowCounter()):
                               $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
                               ?>
                               <div id="count" class="count<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
@@ -324,6 +310,31 @@ if (is_array($target_selectors)) {
                             <?php if (is_string($read_more_url) && strlen($read_more_url) > 6 && !$background): ?>
                             <a href="<?php echo Util::enc($read_more_url) ?>" class="newwin readmore-btn"><?php echo __('Read more') ?></a>
                             <?php endif ?>
+                        </div>
+                        <div class="thankyou">
+                          <h2 class="title-color"><?php echo __('Thank you') ?></h2>
+                          <?php if (!$disabled && 'signup_thankyou' === $widget->getShowCounter()):
+                            $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
+                            ?>
+                            <div id="count--thankyou" class="count<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
+                              <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                              <div class="count-text count-target-top count-target-number"></div>
+                              <div class="count-bar"><div></div><span></span></div>
+                              <div class="count-text count-text-bottom"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                              <div class="count-text count-text-alt"><span class="count-count"><?php echo __($count_translation) ?></span><span>.</span> <span class="count-target"><?php echo __('Target #') ?></span></div>
+                            </div>
+                          <?php endif ?>
+                          <?php if ($openECI): ?>
+                            <div class="openECI-message"><span class="eci-duplicate"><?php echo __("Attention: You've already taken part in this action (maybe on another website).") ?></span><span class="eci-success"><?php echo __('Your statement of support has been submitted successfully.') ?></span> <?php echo __('Signature identifier') ?>: <span class="eci-number"></span>. <span class="eci-tell"><?php echo __('Use this moment to tell friends and family.') ?></span><span class="eci-please-sign-policat"><?php echo __('Sign up and become part of the movement.') ?></span></div>
+                          <?php endif ?>
+                          <p class="form_message label_color">
+                            <?php /* This can be overwritten by js through, see policat_widget.js and _json_form.php */ ?>
+                            <span class="verified-message">
+                                      <?php echo __('You verified your email address.') ?>
+                                      <span class="verified-message-tell"><?php echo __('Use this moment to tell friends and family.') ?></span>
+                                      <?php if ($openECI): ?><span class="verified-message-sign-eci"><?php echo __('Take a moment to support the European Citizen Initiative.') ?></span><?php endif ?>
+                                  </span>
+                          </p>
                         </div>
                         <?php if ($openECI): ?>
                         <div class="openECI" id="openECIParent">
