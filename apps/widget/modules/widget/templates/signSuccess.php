@@ -61,6 +61,7 @@ if (is_array($target_selectors)) {
 <?php endif ?>
       var isOpenECI  = <?php echo json_encode($openECI) ?>;
       var srcOpenECI = '<?php echo Util::enc($petition->getOpeneciURL()) ?>?channel=<?php echo Util::enc($petition->getOpeneciChannel()) ?>&lang=<?php echo $lang ?>';
+      var initialLoadECI = <?php echo $petition->getOpeneciSkipFirstStep() ?>
         </script>
         <?php if (!UtilTheme::removeClassicCss($widget, $petition)): ?><link rel="stylesheet" type="text/css" href="/css/dist/policat_widget.css?<?php echo filemtime(sfConfig::get('sf_web_dir') . '/css/dist/policat_widget.css') ?>" /><?php endif ?>
         <?php if ($font_css_file): ?><link href="<?php echo $font_css_file ?>" rel="stylesheet" type="text/css" /><?php endif ?>

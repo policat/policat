@@ -1,7 +1,7 @@
 jscolor.dir = '/js/dist/';
 
 $(document).ready(function($) {
-	(function($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI) {
+	(function($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI) {
 		var widget = $('#widget');
 		var widget_left = $('#widget-left');
 		var widget_right = $('#widget-right');
@@ -830,6 +830,9 @@ $(document).ready(function($) {
 		if (hasSign) {
 			show_thankyou();
 		}
+		if (initialLoadECI) {
+			show_openECI();
+		}
 		if (editMode) {
 			$('#action, a.back').hide();
 			$('#widget_edit_code').val(edit_code);
@@ -1423,5 +1426,5 @@ $(document).ready(function($) {
 			});
 		}
 
-	})($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI);
+	})($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI);
 });

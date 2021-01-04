@@ -87,6 +87,7 @@
  * @property string                                  $openeci_url                                     Type: string(120)
  * @property string                                  $openeci_channel                                 Type: string(40)
  * @property int                                     $openeci_counter_override                        Type: integer(1)
+ * @property int                                     $openeci_skip_first_step                         Type: integer(1)
  * @property int                                     $openeci_counter_total                           Type: integer(4)
  * @property string                                  $openeci_counter_countries                       Type: clob
  * @property string                                  $mailexport                                      Type: clob
@@ -192,6 +193,7 @@
  * @method string                                    getOpeneciUrl()                                  Type: string(120)
  * @method string                                    getOpeneciChannel()                              Type: string(40)
  * @method int                                       getOpeneciCounterOverride()                      Type: integer(1)
+ * @method int                                       getOpeneciSkipFirstStep()                        Type: integer(1)
  * @method int                                       getOpeneciCounterTotal()                         Type: integer(4)
  * @method string                                    getOpeneciCounterCountries()                     Type: clob
  * @method string                                    getMailexport()                                  Type: clob
@@ -297,6 +299,7 @@
  * @method Petition                                  setOpeneciUrl(string $val)                       Type: string(120)
  * @method Petition                                  setOpeneciChannel(string $val)                   Type: string(40)
  * @method Petition                                  setOpeneciCounterOverride(int $val)              Type: integer(1)
+ * @method Petition                                  setOpeneciSkipFirstStep(int $val)                Type: integer(1)
  * @method Petition                                  setOpeneciCounterTotal(int $val)                 Type: integer(4)
  * @method Petition                                  setOpeneciCounterCountries(string $val)          Type: clob
  * @method Petition                                  setMailexport(string $val)                       Type: clob
@@ -770,6 +773,12 @@ abstract class BasePetition extends myDoctrineRecord
              'length' => 40,
              ));
         $this->hasColumn('openeci_counter_override', 'integer', 1, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'default' => 0,
+             'length' => 1,
+             ));
+        $this->hasColumn('openeci_skip_first_step', 'integer', 1, array(
              'type' => 'integer',
              'notnull' => true,
              'default' => 0,
