@@ -25,6 +25,7 @@
 <?php
 /* @var $petition Petition */
 $form_title = trim(Util::enc($petition_text->getFormTitle(), array('\n' => '<br />')));
+$tyf_title = trim(Util::enc($petition_text->getTyfTitle(), array('\n' => '<br />')));
 $form_title_plain = trim(strtr($petition_text->getFormTitle(), array('\n' => ' ')));
 $share_title = $title;
 if ($form_title_plain) {
@@ -419,7 +420,7 @@ if (is_array($target_selectors)) {
                           </div>
                         <?php endif ?>
                         <div class="share <?php echo $widget['share'] ? 'share-on-sign' : '' ?>">
-                            <h2 class="label_color"><?php echo __('Tell your friends') ?></h2>
+                            <h2 class="label_color"><?php echo $tyf_title ? $tyf_title : __('Tell your friends') ?></h2>
                             <div class="share-icons">
                                 <a href="https://www.facebook.com/sharer/sharer.php?u=" class="newwin sicon facebook" title="Facebook"><img class="no_load" alt="Facebook" src="/images_static/facebook-64.png" /></a>
                                 <a href="whatsapp://send?text=<?php echo rawurlencode($share_title . ' ') ?>" class="hideDesktop sicon whatsapp" title="WhatsApp"><img class="no_load" alt="WhatsApp" src="/images_static/whatsapp-64.png" /></a>
