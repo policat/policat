@@ -314,7 +314,6 @@ if (is_array($target_selectors)) {
                             <?php endif ?>
                         </div>
                         <div class="thankyou">
-                          <h2 class="title-color"><?php echo __('Thank you') ?></h2>
                           <?php if (!$disabled && 'signup_thankyou' === $widget->getShowCounter()):
                             $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
                             ?>
@@ -326,6 +325,7 @@ if (is_array($target_selectors)) {
                               <div class="count-text count-text-alt"><span class="count-count"><?php echo __($count_translation) ?></span><span>.</span> <span class="count-target"><?php echo __('Target #') ?></span></div>
                             </div>
                           <?php endif ?>
+                          <h2 class="title-color"><?php echo __('Thank you') ?></h2>
                           <?php if ($openECI): ?>
                             <div class="openECI-message"><span class="eci-duplicate"><?php echo __("Attention: You've already taken part in this action (maybe on another website).") ?></span><span class="eci-success"><?php echo __('Your statement of support has been submitted successfully.') ?></span> <?php echo __('Signature identifier') ?>: <span class="eci-number"></span>. <span class="eci-tell"><?php echo __('Use this moment to tell friends and family.') ?></span><span class="eci-please-sign-policat"><?php echo __('Sign up and become part of the movement.') ?></span></div>
                           <?php endif ?>
