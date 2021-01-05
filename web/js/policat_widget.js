@@ -276,9 +276,9 @@ $(document).ready(function($) {
 					show_right('thankyou');
 				}
 				widget.addClass('right-only');
+				renderCounter('thankyou');
 			}
 			$('.share').after($('.last-signings'));
-			renderCounter('thankyou');
 			resize();
 			fetchLastSigners(1, 30);
 		}
@@ -397,7 +397,7 @@ $(document).ready(function($) {
 		function renderCounter(context) {
 			var hash_parts = window.location.hash.substring(1).split('!');
 			var count = decodeURIComponent(hash_parts[2]);
-			var countId = 'thankyou' === context ? '#count--thankyou': '#count';
+			var countId = 'thankyou' === context ? '#count.count--thankyou': '#count.count--sign';
 			var increaseCount = 'thankyou' === context;
 			if (count) {
 				var c = count.split('-');

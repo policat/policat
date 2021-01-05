@@ -254,7 +254,7 @@ if (is_array($target_selectors)) {
                             <?php if (!$disabled && 'hide' !== $widget->getShowCounter()):
                               $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
                               ?>
-                              <div id="count" class="count<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
+                              <div id="count" class="count count--sign<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
                                   <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
                                   <div class="count-text count-target-top count-target-number"></div>
                                   <div class="count-bar"><div></div><span></span></div>
@@ -317,7 +317,7 @@ if (is_array($target_selectors)) {
                           <?php if (!$disabled && 'signup_thankyou' === $widget->getShowCounter()):
                             $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
                             ?>
-                            <div id="count--thankyou" class="count<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
+                            <div id="count" class="count count--thankyou<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
                               <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
                               <div class="count-text count-target-top count-target-number"></div>
                               <div class="count-bar"><div></div><span></span></div>
