@@ -258,6 +258,9 @@ $(document).ready(function($) {
 			resize();
 		}
 		function show_thankyou() {
+			if (isOpenECI) {
+				$('#widget').addClass('eci--thankyou');
+			}
 			if (isOpenECI && !hasSign) {
 				show_right('openECI-thankyou-with-sign');
 				fontResize($('.font-size-auto-subscribe'));
@@ -276,9 +279,9 @@ $(document).ready(function($) {
 					show_right('thankyou');
 				}
 				widget.addClass('right-only');
-				renderCounter('thankyou');
 			}
 			$('.share').after($('.last-signings'));
+			renderCounter('thankyou');
 			resize();
 			fetchLastSigners(1, 30);
 		}
