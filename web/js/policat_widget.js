@@ -173,6 +173,7 @@ $(document).ready(function($) {
 		}
 
 		function show_sign() {
+			widget.removeClass('eci--thankyou');
 			show_left('action');
 			show_right('sign');
 			resize();
@@ -259,7 +260,7 @@ $(document).ready(function($) {
 		}
 		function show_thankyou() {
 			if (isOpenECI) {
-				$('#widget').addClass('eci--thankyou');
+				widget.addClass('eci--thankyou');
 			}
 			if (isOpenECI && !hasSign) {
 				show_right('openECI-thankyou-with-sign');
