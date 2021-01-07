@@ -19,11 +19,13 @@ class UtilFont {
       '"Trebuchet MS", Helvetica, sans-serif', 'Verdana, Geneva, sans-serif', '"Courier New", Courier, monospace',
       '"Lucida Console", Monaco, monospace', '"Lucida Sans Unicode", Verdana, Arial',
       '"Open Sans", sans-serif',
-      'Roboto, sans-serif'
+      'Roboto, sans-serif',
+      'DM Sans, sans-serif'
   );
   private static $FONT_CSS_FILE = array(
       'Open Sans' => '/fonts/OpenSans/OpenSans.css',
-      'Roboto' => '/fonts/Roboto/Roboto.css'
+      'Roboto' => '/fonts/Roboto/Roboto.css',
+      'DM Sans' => '/fonts/DMSans/DMSans.css'
   );
 
   public static function cssFileByFont($font_family) {

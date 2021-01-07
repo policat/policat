@@ -1,0 +1,181 @@
+/* include the Font Awesome CSS */
+@import "../FontAwesome/less/font-awesome.less";
+
+@import "sleek.less";
+
+body {
+  background: transparent;
+}
+
+.content-left, .content-right {
+  padding: 30px 45px;
+}
+@media (max-width: @width-one-column-max) {
+  .content-left {
+    padding-bottom: 13px;
+  }
+  .content-right {
+    padding-top: 13px;
+  }
+}
+
+.widget-body {
+  border-radius: 30px;
+  background: var(--background-color);
+}
+
+.form-title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  /* or 17px */
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 9px;
+}
+
+#down-button {
+  display: none;
+}
+
+#petition_text {
+  &.petition__text--short {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+    p {
+      font-weight: bold;
+      font-size: inherit;
+      line-height: inherit;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  &.petition__text--long {
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: .01em;
+  }
+}
+
+input, textarea {
+  &::placeholder {
+    color: #838383;
+    opacity: 1;
+    font-size: 18px;
+    line-height: 31px;
+    letter-spacing: -0.04em;
+  }
+}
+.count {
+  margin-bottom: 36px;
+  .count-text {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 110%;
+
+    /* or 18px */
+    letter-spacing: -0.04em;
+  }
+  .count-bar {
+    border-radius: 30px;
+    div {
+      border-radius: 30px;
+    }
+  }
+}
+
+.form-row {
+  padding: 0;
+  margin-left: 0;
+  margin-bottom: 23px;
+  label {
+    display: none;
+  }
+  &.privacy, &.subscribe {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 23px;
+    label {
+      display: block;
+      font-size: 16px;
+      line-height: 150%;
+      letter-spacing: 0.01em;
+      margin-left: 55px;
+      margin-top: 0;
+      padding: 0;
+    }
+  }
+  &.country {
+    margin-top: 0;
+  }
+  input[type=text], select, textarea {
+    position: relative;
+    width: 100%;
+    height: 55px;
+    box-shadow: none!important;
+    border: 2px solid #ECECEC;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 18px;
+    line-height: 31px;
+    letter-spacing: -0.04em;
+  }
+  .checkbox {
+    width: 33px;
+    height: 33px;
+    background: #FFFFFF;
+    border: 2px solid #ECECEC;
+    box-sizing: border-box;
+    border-radius: 4px;
+    input {
+      display: none;
+    }
+    &.checked::before {
+      font-family: FontAwesome;
+      content:  @fa-var-check;
+      font-size: 20px;
+      position: absolute;
+      right: 4px;
+      top: 3px;
+      color: #026DD8;
+    }
+  }
+  &.country .select-wrap {
+    margin-left: 0;
+    width: 100%;
+    position: relative;
+  }
+}
+
+.form-indicator::after, .form-indicator.form-indicator-select::after {
+  bottom: 10px;
+  right: -25px;
+  z-index: 10;
+}
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  &::-ms-expand {
+    display: none;
+  }
+}
+.select-wrap::before {
+  font-family: FontAwesome;
+  content:  @fa-var-angle-down;
+  font-size: 30px;
+  position: absolute;
+  right: 15px;
+  top: 6px;
+  color: #026DD8;
+  z-index: 99;
+  pointer-events: none;
+}
+
+button.submit-sign {
+  margin-top: 30px;
+}
