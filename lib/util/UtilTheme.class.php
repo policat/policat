@@ -19,6 +19,7 @@ class UtilTheme {
       5 => 'Minimal Sleek',
       6 => 'Flat',
       7 => 'Sleek variant 1',
+      8 => 'Rounded Sans'
   );
   public static $CSS_FILES = array(
       2 => 'sleek.css',
@@ -27,6 +28,7 @@ class UtilTheme {
       5 => 'minimal.css',
       6 => 'flat.css',
       7 => 'sleek-variant-1.css',
+      8 => 'rounded-sans.css'
   );
 
   public static $MAX_WIDTH = array(

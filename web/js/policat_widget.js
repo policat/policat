@@ -352,8 +352,14 @@ $(document).ready(function($) {
 		}
 
 		$('div.privacy-no-check label span.label-link').click(show_privacy_policy);
-		$('div.privacy:not(.privacy-no-check) label').attr('for', 'useless');
+		//$('div.privacy:not(.privacy-no-check) label').attr('for', 'useless');
 		$('div.privacy:not(.privacy-no-check) label span.label-link').click(show_privacy_policy);
+
+		$('#petition_signing_privacy').detach().appendTo('label[for=petition_signing_privacy]');
+		$('#petition_signing_subscribe').detach().appendTo('label[for=petition_signing_subscribe]');
+		$('#petition_signing_privacy, #petition_signing_subscribe').on('change', function () {
+			$(this).parent().toggleClass('checked', $(this).prop('checked'));
+		})
 
 		fontResize(font_size_auto_elements);
 

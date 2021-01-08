@@ -462,7 +462,7 @@ class Widget extends BaseWidget {
       $ret = strtr($ret, $subst);
     }
 
-    return $ret;
+    return Util::enc($ret, ['\n' => '<br>']);
   }
 
 }
