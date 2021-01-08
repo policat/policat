@@ -24,14 +24,13 @@ body {
   background: var(--background-color);
 }
 
-.form-title {
+.widget-left .form-title {
   font-weight: 500;
   font-size: 14px;
-  line-height: 120%;
-  /* or 17px */
+  line-height: 17px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
 }
 
 #down-button {
@@ -80,13 +79,23 @@ input, textarea {
     letter-spacing: -0.04em;
   }
   .count-bar {
+    height: 20px;
     border-radius: 30px;
     div {
+      height: 20px;
       border-radius: 30px;
     }
   }
 }
-
+.widget-right .privacy-no-check label {
+  display: block;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.01em;
+  margin-left: 55px;
+  margin-top: 0;
+  padding: 0;
+}
 .form-row {
   padding: 0;
   margin-left: 0;
@@ -178,4 +187,26 @@ select {
 
 button.submit-sign {
   margin-top: 30px;
+  background-image: none;
+  font-weight: 500;
+  font-size: 24px!important;
+  line-height: 140%;
+
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  span {
+    font-weight: 500;
+    font-size: 24px!important;
+    line-height: 140%;
+
+    text-align: center;
+    letter-spacing: 0.03em;
+    text-transform: none;
+  }
 }
+
+.share {
+  margin-top: 20px;
+}
+
