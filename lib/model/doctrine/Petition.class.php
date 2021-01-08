@@ -77,8 +77,8 @@ class Petition extends BasePetition {
       self::FIELD_EXTRA2 => 'extra2',
       self::FIELD_EXTRA3 => 'extra3',
       self::FIELD_COMMENT => 'comment',
+      self::FIELD_SUBSCRIBE => 'subscribe',
       self::FIELD_PRIVACY => 'privacy policy accepted',
-      self::FIELD_SUBSCRIBE => 'subscribe'
   );
   static $TITLETYPE_SHOW = array
       (

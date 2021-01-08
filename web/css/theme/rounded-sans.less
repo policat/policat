@@ -92,7 +92,7 @@ input, textarea {
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0.01em;
-  margin-left: 55px;
+  margin-left: 5px;
   margin-top: 0;
   padding: 0;
 }
@@ -107,6 +107,10 @@ input, textarea {
     width: 100%;
     margin-left: 0;
     margin-bottom: 23px;
+    input {
+      top: 7px;
+      left: 5px;
+    }
     label {
       display: block;
       font-size: 16px;
@@ -116,6 +120,22 @@ input, textarea {
       margin-top: 0;
       padding: 0;
     }
+  }
+  &.subscribe-radio {
+    display: flex;
+    flex-wrap: wrap;
+    div.form-check:nth-of-type(1) {
+      margin-right: 20px;
+    }
+    label {
+      margin-left: 30px;
+    }
+    & > label {
+      margin-left: 5px;
+    }
+  }
+  .sign-form .subscribe input {
+
   }
   &.country {
     margin-top: 0;
