@@ -174,6 +174,7 @@ $(document).ready(function($) {
 
 		function show_sign() {
 			widget.removeClass('eci--thankyou');
+			widget.removeClass('thankyou');
 			show_left('action');
 			show_right('sign');
 			resize();
@@ -259,6 +260,7 @@ $(document).ready(function($) {
 			resize();
 		}
 		function show_thankyou() {
+			widget.addClass('thankyou');
 			if (isOpenECI) {
 				widget.addClass('eci--thankyou');
 			}
