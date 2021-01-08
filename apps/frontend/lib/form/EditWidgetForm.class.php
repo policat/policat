@@ -101,6 +101,11 @@ class EditWidgetForm extends WidgetForm {
     $this->setWidget('share', new WidgetFormInputCheckbox(array('value_attribute_value' => '1', 'value_checked' => '1', 'value_unchecked' => '0', 'label' => 'Include share buttons underneath sign-button')));
     $this->setValidator('share', new sfValidatorChoice(array('choices' => array('0', '1'))));
 
+    $this->setWidget('show_embed_this', new sfWidgetFormChoice(['label' => 'Include Embed-this button with share buttons', 'choices' => ['1' => 'yes', '0' => 'no']]));
+    $this->setValidator('show_embed_this', new sfValidatorChoice(array('choices' => array('0', '1'))));
+    $this->setDefault('show_embed_this', '1');
+    $this->getWidgetSchema()->setHelp('show_embed_this', 'This allows visitors of your widgets to create their own widget from within yours. We recommend to show the embed-this button to encourage others to support your action.');
+
     if ($petition->getWidgetIndividualiseDesign()) {
       $this->setWidget('themeId', new sfWidgetFormChoice(array('label' => 'Theme', 'choices' => UtilTheme::themesByKind($petition->getKind()))));
       $this->setValidator('themeId', new sfValidatorChoice(array('required' => false, 'choices' => array_keys(UtilTheme::themesByKind($petition->getKind())))));

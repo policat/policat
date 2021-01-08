@@ -441,7 +441,7 @@ if (is_array($target_selectors)) {
                                 list($mail_subject, $mail_body) = UtilMail::tellyourmail($widget, $petition_text, 'UURRLLRREEFF', 'UURRLLMMOORREE');
                                 ?>
                                 <a href="mailto:?subject=<?php echo $mail_subject ?>&amp;body=<?php echo $mail_body ?>" class="sicon mailto" title="Email" target="_top"><img  class="no_load" alt="Email" src="/images_static/email-64.png" /></a>
-                                <?php if ($petition->getShowEmbed()): ?><a id="a-embed-this" class="sicon a-embed-this" title="<?php echo __('Embed this') ?>"><img class="no_load" alt="<?php echo __('Embed this') ?>" src="/images_static/code-64.png" /></a><?php endif ?>
+                                <?php if ($petition->getShowEmbed() && $widget->getShowEmbedThis()): ?><a id="a-embed-this" class="sicon a-embed-this" title="<?php echo __('Embed this') ?>"><img class="no_load" alt="<?php echo __('Embed this') ?>" src="/images_static/code-64.png" /></a><?php endif ?>
                                 <?php if ($paypal_email || $donate_url): ?>
                                 <?php if ($donate_direct): ?>
                                     <a class="sicon donate-btn" target="_blank" href="<?php echo $donate_url ?>" title="<?php echo __('Donate') ?>"><img class="no_load" alt="<?php echo __('Donate') ?>" src="/images_static/charity-64.png" /></a>

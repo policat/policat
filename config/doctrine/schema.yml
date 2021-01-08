@@ -501,6 +501,7 @@ Widget:
     cron_signings24:   { type: integer(4), notnull: true, default: 0 }
     default_country:   { type: string(5), notnull: true, default: '' }
     show_counter:      { type: string(15), notnull: true, default: 'signup' }
+    show_embed_this:   { type: integer(1), notnull: true, default: '1' }
 
     subscribe_default: { type: integer(1), notnull: true, default: -1 }
     subscribe_text:    { type: string(250), notnull: false, default: '' }
