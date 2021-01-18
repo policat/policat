@@ -958,9 +958,25 @@ input, textarea {
 	}
 }
 
-.share .share-icons a span {
-	display: none;
+.share {
+	.share-icons a span {
+		display: none;
+	}
+	.additional_links {
+		text-align: center;
+		margin: 0 auto 10px;
+		a {
+			display: inline-block;
+			background: none;
+			color: var(--button-color);
+			height: 25px;
+			line-height: 25px;
+			font-size: 13px;
+			font-weight: bold;
+		}
+	}
 }
+
 #widget.thankyou {
 	.share {
 		margin-right: 0;

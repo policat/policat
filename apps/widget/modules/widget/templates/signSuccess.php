@@ -466,6 +466,11 @@ if (is_array($target_selectors)) {
                                   <?php endif ?>
                                 <?php endif ?>
                             </div>
+                            <?php if ($additionalLinkUrl = $petition_text->getAdditionalLinkUrl()): ?>
+                            <div class="additional_links">
+                                  <a href="<?php echo $additionalLinkUrl ?>" class="button-color button-btn" target="_blank" rel="noopener noreferrer"><?php if ($additionalLinkLabel = $petition_text->getAdditionalLinkLabel()) { echo $additionalLinkLabel; } else { echo $additionalLinkUrl; } ?></a>
+                            </div>
+                            <?php endif ?>
                         </div>
                         <div class="donate">
                             <?php if ($paypal_email): ?>

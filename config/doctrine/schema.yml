@@ -418,6 +418,8 @@ PetitionText:
     form_title:                 { type: string(100), notnull: false, default: '' }
     subscribe_text:             { type: string(250), notnull: false, default: '' }
     tyf_title:                  { type: string(100), notnull: false, default: '' }
+    additional_link_url:        { type: string(200), notnull: false, default: null }
+    additional_link_label:      { type: string(200), notnull: false, default: null }
 
     signers_page:               { type: clob }
 

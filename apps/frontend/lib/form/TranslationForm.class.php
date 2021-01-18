@@ -377,6 +377,9 @@ class TranslationForm extends BasePetitionTextForm {
 
     $this->setWidget('social_share_text', new sfWidgetFormInput(array('label' => 'Twitter message'), array('size' => 90, 'class' => 'large', 'placeholder' => 'Leave this field empty to use standard texts.')));
     $this->getWidgetSchema()->setHelp('social_share_text', 'Optional keywords: #TITLE#, #WIDGET-HEADING#. Keep the text short. URL is appended automatically.');
+
+    $this->setWidget('additional_link_url', new sfWidgetFormInput(array('label' => 'Additional link URL (optional)'), array('size' => 90, 'class' => 'large', 'placeholder' => 'http://www.example/com/-language-/paper-forms')));
+    $this->setWidget('additional_link_label', new sfWidgetFormInput(array('label' => 'Additional link text label (optional)'), array('size' => 90, 'class' => 'large', 'placeholder' => 'Example: "Print paper forms to collect signatures"')));
   }
 
   public function processValues($values) {
