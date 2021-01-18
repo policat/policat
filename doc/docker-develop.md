@@ -34,7 +34,7 @@ Policat is based on Symfony 1.4 (legacy) http://symfony.com/legacy/doc . For API
 
     docker-compose exec php php symfony cc
 
-## cron tasks
+## cron tasks 
 
 To test sending of emails. You must run the following task. It will send the emails from the policat
 mail queue to the mailserver:
