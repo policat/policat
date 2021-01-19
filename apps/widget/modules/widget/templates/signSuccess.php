@@ -25,6 +25,7 @@
 <?php
 /* @var $petition Petition */
 $form_title = trim(Util::enc($petition_text->getFormTitle(), array('\n' => '<br />')));
+$tyf_title = trim(Util::enc($petition_text->getTyfTitle(), array('\n' => '<br />')));
 $form_title_plain = trim(strtr($petition_text->getFormTitle(), array('\n' => ' ')));
 $share_title = $title;
 if ($form_title_plain) {
@@ -61,6 +62,7 @@ if (is_array($target_selectors)) {
 <?php endif ?>
       var isOpenECI  = <?php echo json_encode($openECI) ?>;
       var srcOpenECI = '<?php echo Util::enc($petition->getOpeneciURL()) ?>?channel=<?php echo Util::enc($petition->getOpeneciChannel()) ?>&lang=<?php echo $lang ?>';
+      var initialLoadECI = <?php echo $petition->getOpeneciSkipFirstStep() ?>
         </script>
         <?php if (!UtilTheme::removeClassicCss($widget, $petition)): ?><link rel="stylesheet" type="text/css" href="/css/dist/policat_widget.css?<?php echo filemtime(sfConfig::get('sf_web_dir') . '/css/dist/policat_widget.css') ?>" /><?php endif ?>
         <?php if ($font_css_file): ?><link href="<?php echo $font_css_file ?>" rel="stylesheet" type="text/css" /><?php endif ?>
@@ -80,6 +82,7 @@ if (is_array($target_selectors)) {
                         <div id="action" class="action">
                             <div id="head" class="head">
                                 <h1 class="form-title title-color <?php echo $form_title ? '' : 'form-title-label' ?>"><?php echo $form_title ? : __($petition->getLabel(PetitionTable::LABEL_TITLE)) ?></h1>
+                                <span class="form-title title-color form-title--thankyou <?php echo $form_title ? '' : 'form-title-label' ?>"><?php echo __('Thank you') ?></span>
                                 <?php if ($title): ?><h1 class="action-title font-size-auto"><?php echo Util::enc($title) ?></h1><?php endif ?>
                                 <?php if ($target): ?><div class="subtitle"><?php echo UtilMarkdown::transformMedia($target, $petition) ?></div><?php endif ?>
                             </div>
@@ -223,27 +226,49 @@ if (is_array($target_selectors)) {
                         <?php endif ?>
                     </div>
                 </div>
-
+              <?php
+              $disabled = false;
+              $require_billing_before = $require_billing_after = false;
+              if ($require_billing) {
+                if ($petition->countSignings() < 10) { // show begin message when action has some signings
+                  $require_billing_before = true;
+                } else {
+                  $require_billing_after = true;
+                }
+              }
+              if ($petition->isBefore() || $require_billing_before): $disabled = true;
+              elseif ($petition->isAfter() || $require_billing_after): $disabled = true;
+              endif ?>
                 <div id="widget-right" class="widget-right show-sign">
                     <div id="content-right" class="content-right">
                         <div class="thankyou">
-                            <h2 class="title-color"><?php echo __('Thank you') ?></h2>
-                            <?php if ($openECI): ?>
-                            <div class="openECI-message"><span class="eci-duplicate"><?php echo __("Attention: You've already taken part in this action (maybe on another website).") ?></span><span class="eci-success"><?php echo __('Your statement of support has been submitted successfully.') ?></span> <?php echo __('Signature identifier') ?>: <span class="eci-number"></span>. <span class="eci-tell"><?php echo __('Use this moment to tell friends and family.') ?></span><span class="eci-please-sign-policat"><?php echo __('Sign up and become part of the movement.') ?></span></div>
-                            <?php endif ?>
-                            <p class="form_message label_color">
-                                <?php /* This can be overwritten by js through, see policat_widget.js and _json_form.php */ ?>
-                                <span class="verified-message">
-                                    <?php echo __('You verified your email address.') ?>
-                                    <span class="verified-message-tell"><?php echo __('Use this moment to tell friends and family.') ?></span>
-                                    <?php if ($openECI): ?><span class="verified-message-sign-eci"><?php echo __('Take a moment to support the European Citizen Initiative.') ?></span><?php endif ?>
-                                </span>
-                            </p>
-                        </div>
+                        <?php if (!$disabled && 'signup_thankyou' === $widget->getShowCounter()):
+                          $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
+                          ?>
+                          <div id="count" class="count count--thankyou<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
+                            <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                            <div class="count-text count-target-top count-target-number"></div>
+                            <div class="count-bar"><div></div><span></span></div>
+                            <div class="count-text count-text-bottom"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                            <div class="count-text count-text-alt"><span class="count-count"><?php echo __($count_translation) ?></span><span>.</span> <span class="count-target"><?php echo __('Target #') ?></span></div>
+                          </div>
+                        <?php endif ?>
+                        <h2 class="title-color"><?php echo __('Thank you') ?></h2>
+                        <?php if ($openECI): ?>
+                          <div class="openECI-message"><span class="eci-duplicate"><?php echo __("Attention: You've already taken part in this action (maybe on another website).") ?></span><span class="eci-success"><?php echo __('Your statement of support has been submitted successfully.') ?></span> <?php echo __('Signature identifier') ?>: <span class="eci-number"></span>. <span class="eci-tell"><?php echo __('Use this moment to tell friends and family.') ?></span><span class="eci-please-sign-policat"><?php echo __('Sign up and become part of the movement.') ?></span></div>
+                        <?php endif ?>
+                        <p class="form_message label_color">
+                          <?php /* This can be overwritten by js through, see policat_widget.js and _json_form.php */ ?>
+                          <span class="verified-message">
+                                      <?php echo __('You verified your email address.') ?>
+                                      <span class="verified-message-tell"><?php echo __('Use this moment to tell friends and family.') ?></span>
+                                      <?php if ($openECI): ?><span class="verified-message-sign-eci"><?php echo __('Take a moment to support the European Citizen Initiative.') ?></span><?php endif ?>
+                                  </span>
+                        </p>
+                      </div>
                         <div class="sign">
                             <h2 class="form-title title-color"><?php echo trim(Util::enc($petition_text->getFormTitle(), array('\n' => '<br />'))) ? : __($petition->getLabel(PetitionTable::LABEL_TITLE)) ?></h2>
                             <?php
-                            $disabled = false;
                             $require_billing_before = $require_billing_after = false;
                             if ($require_billing) {
                               if ($petition->countSignings() < 10) { // show begin message when action has some signings
@@ -252,21 +277,21 @@ if (is_array($target_selectors)) {
                                 $require_billing_after = true;
                               }
                             }
-                            if ($petition->isBefore() || $require_billing_before): $disabled = true
+                            if ($petition->isBefore() || $require_billing_before):
                               ?>
                               <?php if ($petition->getKeyVisual()): ?><div class="keyvisual"><img src="<?php echo image_path('keyvisual/' . $petition->getKeyVisual()) ?>" alt="" /></div><?php endif ?>
                               <p><?php echo __('The action starts on #DATE#. Stay tuned and spread the word!', array('#DATE#' => $petition->getStartAt() ? format_date($petition->getStartAt(), 'D') : 'XX.XX.XXXX')) ?></p>
-                            <?php elseif ($petition->isAfter() || $require_billing_after): $disabled = true ?>
+                            <?php elseif ($petition->isAfter() || $require_billing_after): ?>
                               <?php if ($petition->getKeyVisual()): ?><div class="keyvisual"><img src="<?php echo image_path('keyvisual/' . $petition->getKeyVisual()) ?>" alt="" /></div><?php endif ?>
                               <p>
                                   <?php echo __('This action is over. Thanks to the #COUNTER# people who signed-up!', array('#COUNTER#' => '<b>' . $petition->countSigningsPlusApi() . '</b>')) ?>
                                   <a target="_blank" href="<?php echo url_for('homepage') ?>"><?php echo __('More actions') ?></a>
                               </p>
                             <?php endif ?>
-                            <?php if (!$disabled):
+                            <?php if (!$disabled && 'hide' !== $widget->getShowCounter()):
                               $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
                               ?>
-                              <div id="count" class="count<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
+                              <div id="count" class="count count--sign<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
                                   <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
                                   <div class="count-text count-target-top count-target-number"></div>
                                   <div class="count-bar"><div></div><span></span></div>
@@ -407,24 +432,45 @@ if (is_array($target_selectors)) {
                           </div>
                         <?php endif ?>
                         <div class="share <?php echo $widget['share'] ? 'share-on-sign' : '' ?>">
-                            <h2 class="label_color"><?php echo __('Tell your friends') ?></h2>
+                            <h2 class="label_color"><?php echo $tyf_title ? $tyf_title : __('Tell your friends') ?></h2>
                             <div class="share-icons">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=" class="newwin sicon facebook" title="Facebook"><img class="no_load" alt="Facebook" src="/images_static/facebook-64.png" /></a>
-                                <a href="whatsapp://send?text=<?php echo rawurlencode($share_title . ' ') ?>" class="hideDesktop sicon whatsapp" title="WhatsApp"><img class="no_load" alt="WhatsApp" src="/images_static/whatsapp-64.png" /></a>
-                                <a href="https://twitter.com/share?text=<?php echo urlencode($share_title) ?>&amp;url=" class="newwin sicon twitter" title="Twitter"><img class="no_load" alt="Twitter" src="/images_static/twitter-64.png" /></a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=" class="newwin sicon facebook" title="Facebook">
+                                  <img class="no_load" alt="Facebook" src="/images_static/facebook-64.png" /><span>Facebook</span>
+                                </a>
+                                <a href="whatsapp://send?text=<?php echo rawurlencode($share_title . ' ') ?>" class="hideDesktop sicon whatsapp" title="WhatsApp">
+                                  <img class="no_load" alt="WhatsApp" src="/images_static/whatsapp-64.png" /><span>WhatsApp</span>
+                                </a>
+                                <a href="https://twitter.com/share?text=<?php echo urlencode($share_title) ?>&amp;url=" class="newwin sicon twitter" title="Twitter">
+                                  <img class="no_load" alt="Twitter" src="/images_static/twitter-64.png" /><span>Twitter</span>
+                                </a>
                                 <?php
                                 list($mail_subject, $mail_body) = UtilMail::tellyourmail($widget, $petition_text, 'UURRLLRREEFF', 'UURRLLMMOORREE');
                                 ?>
-                                <a href="mailto:?subject=<?php echo $mail_subject ?>&amp;body=<?php echo $mail_body ?>" class="sicon mailto" title="Email" target="_top"><img  class="no_load" alt="Email" src="/images_static/email-64.png" /></a>
-                                <?php if ($petition->getShowEmbed()): ?><a id="a-embed-this" class="sicon a-embed-this" title="<?php echo __('Embed this') ?>"><img class="no_load" alt="<?php echo __('Embed this') ?>" src="/images_static/code-64.png" /></a><?php endif ?>
-                                <?php if ($paypal_email || $donate_url): ?>
-                                <?php if ($donate_direct): ?>
-                                    <a class="sicon donate-btn" target="_blank" href="<?php echo $donate_url ?>" title="<?php echo __('Donate') ?>"><img class="no_load" alt="<?php echo __('Donate') ?>" src="/images_static/charity-64.png" /></a>
-                                <?php else: ?>
-                                    <a id="a-donate" class="sicon donate-btn" title="<?php echo __('Donate') ?>"><img class="no_load" alt="<?php echo __('Donate') ?>" src="/images_static/charity-64.png" /></a>
+                                <a href="mailto:?subject=<?php echo $mail_subject ?>&amp;body=<?php echo $mail_body ?>" class="sicon mailto" title="Email" target="_top">
+                                  <img  class="no_load" alt="Email" src="/images_static/email-64.png" /><span><?php echo __('Send an Email') ?></span>
+                                </a>
+                                <?php if ($petition->getShowEmbed() && $widget->getShowEmbedThis()): ?>
+                                  <a id="a-embed-this" class="sicon a-embed-this" title="<?php echo __('Embed this') ?>">
+                                    <img class="no_load" alt="<?php echo __('Embed this') ?>" src="/images_static/code-64.png" /><span><?php echo __('Embed this') ?></span>
+                                  </a>
                                 <?php endif ?>
+                                <?php if ($paypal_email || $donate_url): ?>
+                                  <?php if ($donate_direct): ?>
+                                      <a class="sicon donate-btn" target="_blank" href="<?php echo $donate_url ?>" title="<?php echo __('Donate') ?>">
+                                        <img class="no_load" alt="<?php echo __('Donate') ?>" src="/images_static/charity-64.png" /><span><?php echo __('Donate') ?></span>
+                                      </a>
+                                  <?php else: ?>
+                                      <a id="a-donate" class="sicon donate-btn" title="<?php echo __('Donate') ?>">
+                                        <img class="no_load" alt="<?php echo __('Donate') ?>" src="/images_static/charity-64.png" /><span><?php echo __('Donate') ?></span>
+                                      </a>
+                                  <?php endif ?>
                                 <?php endif ?>
                             </div>
+                            <?php if ($additionalLinkUrl = $petition_text->getAdditionalLinkUrl()): ?>
+                            <div class="additional_links">
+                                  <a href="<?php echo $additionalLinkUrl ?>" class="button-color button-btn" target="_blank" rel="noopener noreferrer"><?php if ($additionalLinkLabel = $petition_text->getAdditionalLinkLabel()) { echo $additionalLinkLabel; } else { echo $additionalLinkUrl; } ?></a>
+                            </div>
+                            <?php endif ?>
                         </div>
                         <div class="donate">
                             <?php if ($paypal_email): ?>

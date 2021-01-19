@@ -336,6 +336,7 @@ Petition:
     openeci_url:             { type: string(120), notnull: false, default: null }
     openeci_channel:         { type: string(40),  notnull: false, default: null }
     openeci_counter_override:  { type: integer(1), notnull: true, default: 0 }
+    openeci_skip_first_step:   { type: integer(1), notnull: true, default: 0 }
     openeci_counter_total:     { type: integer(4), notnull: true, default: 0 }
     openeci_counter_countries: { type: clob, notnull: false }
     mailexport:              { type: clob, notnull: false }
@@ -416,6 +417,9 @@ PetitionText:
 
     form_title:                 { type: string(100), notnull: false, default: '' }
     subscribe_text:             { type: string(250), notnull: false, default: '' }
+    tyf_title:                  { type: string(100), notnull: false, default: '' }
+    additional_link_url:        { type: string(200), notnull: false, default: null }
+    additional_link_label:      { type: string(200), notnull: false, default: null }
 
     signers_page:               { type: clob }
 
@@ -498,6 +502,8 @@ Widget:
     social_share_text:          { type: clob }
     cron_signings24:   { type: integer(4), notnull: true, default: 0 }
     default_country:   { type: string(5), notnull: true, default: '' }
+    show_counter:      { type: string(15), notnull: true, default: 'signup' }
+    show_embed_this:   { type: integer(1), notnull: true, default: '1' }
 
     subscribe_default: { type: integer(1), notnull: true, default: -1 }
     subscribe_text:    { type: string(250), notnull: false, default: '' }

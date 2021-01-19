@@ -58,6 +58,15 @@ class EditWidgetForm extends WidgetForm {
     $this->setDefault('styling_type', $this->getObject()->getStyling('type', 'embed'));
     $this->getWidgetSchema()->setLabel('styling_type', 'Widget type');
 
+    $this->setWidget('show_counter', new sfWidgetFormChoice(['choices' => [
+      'signup' => 'On sign-up page',
+      'signup_thankyou' => 'On sign-up page and thank you page',
+      'hide' => 'Don\'t show'
+    ]]));
+    $this->setValidator('show_counter', new sfValidatorChoice(['choices' => ['signup', 'signup_thankyou', 'hide']]));
+    $this->setDefault('show_counter', 'signup');
+    $this->getWidgetSchema()->setLabel('show_counter', 'Show counter');
+
     $choices = $this->getWidthChoices();
     $this->setWidget('styling_width', new sfWidgetFormChoice(array('choices' => $choices), array(
         'class' => 'add_popover',
@@ -91,6 +100,11 @@ class EditWidgetForm extends WidgetForm {
 
     $this->setWidget('share', new WidgetFormInputCheckbox(array('value_attribute_value' => '1', 'value_checked' => '1', 'value_unchecked' => '0', 'label' => 'Include share buttons underneath sign-button')));
     $this->setValidator('share', new sfValidatorChoice(array('choices' => array('0', '1'))));
+
+    $this->setWidget('show_embed_this', new sfWidgetFormChoice(['label' => 'Include Embed-this button with share buttons', 'choices' => ['1' => 'yes', '0' => 'no']]));
+    $this->setValidator('show_embed_this', new sfValidatorChoice(array('choices' => array('0', '1'))));
+    $this->setDefault('show_embed_this', '1');
+    $this->getWidgetSchema()->setHelp('show_embed_this', 'This allows visitors of your widgets to create their own widget from within yours. We recommend to show the embed-this button to encourage others to support your action.');
 
     if ($petition->getWidgetIndividualiseDesign()) {
       $this->setWidget('themeId', new sfWidgetFormChoice(array('label' => 'Theme', 'choices' => UtilTheme::themesByKind($petition->getKind()))));

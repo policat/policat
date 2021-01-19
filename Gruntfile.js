@@ -125,6 +125,14 @@ module.exports = function(grunt) {
 				files: {
 					'web/css/dist/theme/sleek-variant-1.css': 'web/css/theme/sleek-variant-1.less'
 			  }
+			},
+			theme_rounded_sans: {
+				options: {
+					sourceMapFilename: 'web/css/dist/theme/rounded-sans.less.map'
+				},
+				files: {
+					'web/css/dist/theme/rounded-sans.css': 'web/css/theme/rounded-sans.less'
+				}
 			}
 		},
 		cssmin: {

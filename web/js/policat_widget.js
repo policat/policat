@@ -1,7 +1,7 @@
 jscolor.dir = '/js/dist/';
 
 $(document).ready(function($) {
-	(function($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI) {
+	(function($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI) {
 		var widget = $('#widget');
 		var widget_left = $('#widget-left');
 		var widget_right = $('#widget-right');
@@ -173,6 +173,8 @@ $(document).ready(function($) {
 		}
 
 		function show_sign() {
+			widget.removeClass('eci--thankyou');
+			widget.removeClass('thankyou');
 			show_left('action');
 			show_right('sign');
 			resize();
@@ -258,6 +260,10 @@ $(document).ready(function($) {
 			resize();
 		}
 		function show_thankyou() {
+			widget.addClass('thankyou');
+			if (isOpenECI) {
+				widget.addClass('eci--thankyou');
+			}
 			if (isOpenECI && !hasSign) {
 				show_right('openECI-thankyou-with-sign');
 				fontResize($('.font-size-auto-subscribe'));
@@ -278,6 +284,7 @@ $(document).ready(function($) {
 				widget.addClass('right-only');
 			}
 			$('.share').after($('.last-signings'));
+			renderCounter('thankyou');
 			resize();
 			fetchLastSigners(1, 30);
 		}
@@ -347,8 +354,14 @@ $(document).ready(function($) {
 		}
 
 		$('div.privacy-no-check label span.label-link').click(show_privacy_policy);
-		$('div.privacy:not(.privacy-no-check) label').attr('for', 'useless');
+		//$('div.privacy:not(.privacy-no-check) label').attr('for', 'useless');
 		$('div.privacy:not(.privacy-no-check) label span.label-link').click(show_privacy_policy);
+
+		$('#petition_signing_privacy').detach().appendTo('label[for=petition_signing_privacy]');
+		$('#petition_signing_subscribe').detach().appendTo('label[for=petition_signing_subscribe]');
+		$('#petition_signing_privacy, #petition_signing_subscribe').on('change', function () {
+			$(this).parent().toggleClass('checked', $(this).prop('checked'));
+		})
 
 		fontResize(font_size_auto_elements);
 
@@ -393,30 +406,38 @@ $(document).ready(function($) {
 			widget.addClass('has_sign');
 		}
 
-		if (count) {
-			var c = count.split('-');
-			if (c.length >= 2) {
-				var a = parseInt(c[0]);
-				var b = parseInt(c[1]);
-				var p = Math.ceil(a / b * 100);
-				var el_count = $('#count .count-count');
-				var el_target = $('#count .count-target');
-				$('#count .count-target-number').text(numberWithCommas(b));
-				el_count.text(el_count.first().text().replace('#', numberWithCommas(a)));
-				el_target.text(el_target.first().text().replace('#', numberWithCommas(b)));
-				if (p > 30) {
-					$('#count .count-bar span').css({'color': 'white', 'width': p + '%', 'margin-left': '-4px'});
+		function renderCounter(context) {
+			var hash_parts = window.location.hash.substring(1).split('!');
+			var count = decodeURIComponent(hash_parts[2]);
+			var countId = 'thankyou' === context ? '#count.count--thankyou': '#count.count--sign';
+			var increaseCount = 'thankyou' === context;
+			if (count) {
+				var c = count.split('-');
+				if (c.length >= 2) {
+					var a = parseInt(c[0]);
+					if (increaseCount) a++;
+					var b = parseInt(c[1]);
+					var p = Math.ceil(a / b * 100);
+					var el_count = $(countId + ' .count-count');
+					var el_target = $(countId + ' .count-target');
+					$(countId + ' .count-target-number').text(numberWithCommas(b));
+					el_count.text(el_count.first().text().replace('#', numberWithCommas(a)));
+					el_target.text(el_target.first().text().replace('#', numberWithCommas(b)));
+					if (p > 30) {
+						$(countId + ' .count-bar span').css({'color': 'white', 'width': p + '%', 'margin-left': '-4px'});
+					} else {
+						$(countId + ' .count-bar span').css({'text-align': 'left', 'margin-left': p + '%'});
+					}
+					$(countId + ' .count-bar div').animate({'width': p + '%'}, 2500, 'swing', function () {
+						$(countId + ' .count-bar span').html(numberWithCommas(a));
+					});
 				}
-				else {
-					$('#count .count-bar span').css({'text-align': 'left', 'margin-left': p + '%'});
-				}
-				$('#count .count-bar div').animate({'width': p + '%'}, 2500, 'swing', function() {
-					$('#count .count-bar span').html(numberWithCommas(a));
-				});
+			} else {
+				$(countId).hide();
 			}
 		}
-		else
-			$('#count').hide();
+
+		renderCounter();
 
 		$('a.facebook, a.whatsapp, a.twitter, a.gplus').each(function() {
 			if ($(this).hasClass('twitter'))
@@ -820,6 +841,9 @@ $(document).ready(function($) {
 		$('#privacy-policy').hide();
 		if (hasSign) {
 			show_thankyou();
+		}
+		if (initialLoadECI) {
+			show_openECI();
 		}
 		if (editMode) {
 			$('#action, a.back').hide();
@@ -1414,5 +1438,5 @@ $(document).ready(function($) {
 			});
 		}
 
-	})($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI);
+	})($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI);
 });

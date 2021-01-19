@@ -909,3 +909,118 @@ span.checkbox {
 		}
 	}
 }
+
+#widget.eci--thankyou {
+	#widget-right {
+		.share, .donate {
+			h2 {
+				margin-top: 30px;
+			}
+		}
+	}
+}
+
+.openECI-movement {
+	display: block;
+	margin-bottom: 20px;
+
+	.form-text {
+		font-size: 18px;
+		font-weight: 700;
+	}
+}
+
+#head .form-title--thankyou {
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 28px;
+	display: none;
+}
+input, textarea {
+	&::-webkit-input-placeholder {
+		/* WebKit browsers */
+		opacity: 0;
+	}
+	&:-moz-placeholder {
+		/* Mozilla Firefox 4 to 18 */
+		opacity: 0;
+	}
+	&::-moz-placeholder {
+		/* Mozilla Firefox 19+ */
+		opacity: 0;
+	}
+	&:-ms-input-placeholder {
+		/* Internet Explorer 10+ */
+		opacity: 0;
+	}
+	&::placeholder {
+		opacity: 0;
+	}
+}
+
+.share {
+	.share-icons {
+		text-align: center;
+		a span {
+			display: none;
+		}
+	}
+	.sicon {
+		float: none;
+		display: inline-block;
+	}
+	.additional_links {
+		text-align: center;
+		margin: 0 auto 10px;
+		a {
+			padding: 0;
+			display: inline-block;
+			background: none;
+			color: var(--button-color);
+			height: 25px;
+			line-height: 25px;
+			font-size: 13px;
+			font-weight: bold;
+		}
+	}
+}
+
+#widget.thankyou {
+	.share {
+		margin-right: 0;
+		.share-icons {
+			a {
+				position: relative;
+				display: block;
+				max-width: 400px;
+				margin: 10px auto;
+				width: 100%;
+				font-size: 22px;
+				font-weight: bold;
+				height: 60px;
+				border-radius: 5px;
+				text-decoration: none;
+				word-spacing: normal;
+				text-align: center;
+				@media (min-width: 930px) {
+					min-width: 300px;
+					width: auto;
+				}
+				img {
+					position: absolute;
+					left: 5px;
+					top: 10px;
+					height: 40px;
+					width: 40px;
+				}
+				span {
+					display: inline;
+					font-size: 22px;
+					line-height: 60px;
+					font-weight: bold;
+					color: #ffffff;
+				}
+			}
+		}
+	}
+}

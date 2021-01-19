@@ -46,6 +46,9 @@
  * @property string                                 $placeholder_extra3                          Type: string(80)
  * @property string                                 $form_title                                  Type: string(100)
  * @property string                                 $subscribe_text                              Type: string(250)
+ * @property string                                 $tyf_title                                   Type: string(100)
+ * @property string                                 $additional_link_url                         Type: string(200)
+ * @property string                                 $additional_link_label                       Type: string(200)
  * @property string                                 $signers_page                                Type: clob
  * @property string                                 $digest_subject                              Type: string
  * @property string                                 $digest_body_intro                           Type: clob
@@ -99,6 +102,9 @@
  * @method string                                   getPlaceholderExtra3()                       Type: string(80)
  * @method string                                   getFormTitle()                               Type: string(100)
  * @method string                                   getSubscribeText()                           Type: string(250)
+ * @method string                                   getTyfTitle()                                Type: string(100)
+ * @method string                                   getAdditionalLinkUrl()                       Type: string(200)
+ * @method string                                   getAdditionalLinkLabel()                     Type: string(200)
  * @method string                                   getSignersPage()                             Type: clob
  * @method string                                   getDigestSubject()                           Type: string
  * @method string                                   getDigestBodyIntro()                         Type: clob
@@ -152,6 +158,9 @@
  * @method PetitionText                             setPlaceholderExtra3(string $val)            Type: string(80)
  * @method PetitionText                             setFormTitle(string $val)                    Type: string(100)
  * @method PetitionText                             setSubscribeText(string $val)                Type: string(250)
+ * @method PetitionText                             setTyfTitle(string $val)                     Type: string(100)
+ * @method PetitionText                             setAdditionalLinkUrl(string $val)            Type: string(200)
+ * @method PetitionText                             setAdditionalLinkLabel(string $val)          Type: string(200)
  * @method PetitionText                             setSignersPage(string $val)                  Type: clob
  * @method PetitionText                             setDigestSubject(string $val)                Type: string
  * @method PetitionText                             setDigestBodyIntro(string $val)              Type: clob
@@ -339,6 +348,22 @@ abstract class BasePetitionText extends myDoctrineRecord
              'notnull' => false,
              'default' => '',
              'length' => 250,
+             ));
+        $this->hasColumn('tyf_title', 'string', 100, array(
+             'type' => 'string',
+             'notnull' => false,
+             'default' => '',
+             'length' => 100,
+             ));
+        $this->hasColumn('additional_link_url', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => false,
+             'length' => 200,
+             ));
+        $this->hasColumn('additional_link_label', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => false,
+             'length' => 200,
              ));
         $this->hasColumn('signers_page', 'clob', null, array(
              'type' => 'clob',

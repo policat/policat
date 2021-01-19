@@ -587,6 +587,14 @@ a.back-priv-1 {
 	div {
 		font-size: 14px;
 	}
+	.count {
+		margin: 30px auto;
+		.count-text {
+			.count-count {
+				float: left;
+			}
+		}
+	}
 }
 
 @media (min-width: @width-two-column-min) {
@@ -693,7 +701,10 @@ a.back-priv-1 {
 		display: none;
 	}
 	&.show-openECI-thankyou-with-sign {
-		.go-to-eci-form, .count {
+		.go-to-eci-form{
+			display: none;
+		}
+		.count--sign{
 			display: none;
 		}
 		.submit-no-subscribe {
@@ -1382,6 +1393,37 @@ h2:hover + .embed-this-help-head {
 	}
 }
 
-.openECI-movement {
+.form-title--thankyou {
 	display: none;
 }
+
+#widget.eci--thankyou {
+	#widget-left #head h1{
+		display: none;
+	}
+	.form-title--thankyou {
+		display: block;
+		margin-bottom: 0.5em;
+	}
+	#widget-right .thankyou {
+		.title-color {
+			display: none;
+		}
+	}
+}
+
+.share {
+	.share-icons a span {
+		display: none;
+	}
+	.additional_links {
+		clear: both;
+		a {
+			display: inline-block;
+			height: 20px;
+			line-height: 20px;
+			font-size: 13px;
+		}
+	}
+}
+

@@ -58,15 +58,16 @@ if ($petition->isEmailKind()):
   endif;
 else:
   ?>
-  <div class="scroll"><div id="petition_text">
-      <?php
-      $markdown = array();
-      foreach (array('intro', 'body', 'footer') as $field) {
-        $value = ($widget_texts && isset($widget[$field])) ? $widget[$field] : $petition_text[$field];
-        $markdown[] = $value;
-      }
-      echo trim(UtilMarkdown::transformMedia(implode("\n\n", $markdown), $petition), "\n") . "\n";
-      ?>
+  <?php
+  $markdown = array();
+  foreach (array('intro', 'body', 'footer') as $field) {
+    $value = ($widget_texts && isset($widget[$field])) ? $widget[$field] : $petition_text[$field];
+    $markdown[] = $value;
+  }
+  $class = strlen(implode('\n\n', $markdown)) > 100 ? 'petition__text--long': 'petition__text--short';
+  ?>
+  <div class="scroll"><div id="petition_text" class="<?php echo $class ?>">
+    <?php echo trim(UtilMarkdown::transformMedia(implode("\n\n", $markdown), $petition), "\n") . "\n"; ?>
     </div>
   </div>
 <?php endif;

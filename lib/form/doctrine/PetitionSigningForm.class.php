@@ -59,9 +59,9 @@ class PetitionSigningForm extends BasePetitionSigningForm {
       $label = true;
       switch ($formfield) {
         case Petition::FIELD_EMAIL:
-          $widget = new sfWidgetFormInputText();
-          $validator = new ValidatorEmail(array('max_length' => 80));
           $label = 'Email address';
+          $widget = new sfWidgetFormInputText([], ['placeholder' => $label]);
+          $validator = new ValidatorEmail(array('max_length' => 80));
           break;
         case Petition::FIELD_COUNTRY:
           $culture_info = $widget_object->getPetitionText()->utilCultureInfo();
@@ -120,45 +120,47 @@ class PetitionSigningForm extends BasePetitionSigningForm {
           $label = 'Mrs/Mr';
           break;
         case Petition::FIELD_COMMENT:
-          $widget = new sfWidgetFormTextarea();
-          $validator = new sfValidatorString(array('required' => false));
           $label = 'Personal comment';
+          $widget = new sfWidgetFormTextarea([],  ['placeholder' => $label]);
+          $validator = new sfValidatorString(array('required' => false));
           break;
         case Petition::FIELD_FIRSTNAME:
-          $widget = new sfWidgetFormInputText();
-          $validator = new sfValidatorString();
           $label = 'First name';
+          $widget = new sfWidgetFormInputText([], ['placeholder' => $label]);
+          $validator = new sfValidatorString();
           break;
         case Petition::FIELD_LASTNAME:
-          $widget = new sfWidgetFormInputText();
-          $validator = new sfValidatorString();
           $label = 'Last name';
+          $widget = new sfWidgetFormInputText([], ['placeholder' => $label]);
+          $validator = new sfValidatorString();
           break;
         case Petition::FIELD_FULLNAME:
-          $widget = new sfWidgetFormInputText();
-          $validator = new sfValidatorString();
           $label = 'Full name';
+          $widget = new sfWidgetFormInputText([], ['placeholder' => $label]);
+          $validator = new sfValidatorString();
           break;
         case Petition::FIELD_EXTRA1:
           $text = $this->getObject()->getWidget()->getPetitionText();
-          $widget = new sfWidgetFormInputText(array(), array('class' => ($petition->getWithExtra1() == Petition::WITH_EXTRA_YES_REQUIRED ? '' : 'not_required'), 'placeholder' => $text->getPlaceholderExtra1()));
-          $validator = new sfValidatorString(array('required' => false));
           $label = $text->getLabelExtra1() ? : 'Extra 1';
+          $widget = new sfWidgetFormInputText(array(), array('class' => ($petition->getWithExtra1() == Petition::WITH_EXTRA_YES_REQUIRED ? '' : 'not_required'), 'placeholder' => $text->getPlaceholderExtra1() ?: $label));
+          $validator = new sfValidatorString(array('required' => false));
           break;
         case Petition::FIELD_EXTRA2:
           $text = $this->getObject()->getWidget()->getPetitionText();
-          $widget = new sfWidgetFormInputText(array(), array('class' => ($petition->getWithExtra2() == Petition::WITH_EXTRA_YES_REQUIRED ? '' : 'not_required'), 'placeholder' => $text->getPlaceholderExtra2()));
-          $validator = new sfValidatorString(array('required' => false));
           $label = $text->getLabelExtra2() ? : 'Extra 2';
+          $widget = new sfWidgetFormInputText(array(), array('class' => ($petition->getWithExtra2() == Petition::WITH_EXTRA_YES_REQUIRED ? '' : 'not_required'), 'placeholder' => $text->getPlaceholderExtra2() ?: $label));
+          $validator = new sfValidatorString(array('required' => false));
           break;
         case Petition::FIELD_EXTRA3:
           $text = $this->getObject()->getWidget()->getPetitionText();
-          $widget = new sfWidgetFormInputText(array(), array('class' => ($petition->getWithExtra3() == Petition::WITH_EXTRA_YES_REQUIRED ? '' : 'not_required'), 'placeholder' => $text->getPlaceholderExtra3()));
-          $validator = new sfValidatorString(array('required' => false));
           $label = $text->getLabelExtra3() ? : 'Extra 3';
+          $widget = new sfWidgetFormInputText(array(), array('class' => ($petition->getWithExtra3() == Petition::WITH_EXTRA_YES_REQUIRED ? '' : 'not_required'), 'placeholder' => $text->getPlaceholderExtra3() ?: $label));
+          $validator = new sfValidatorString(array('required' => false));
           break;
         default:
-          $widget = new sfWidgetFormInputText();
+          $label = str_replace('_', ' ', ucfirst('_id' == substr($formfield, -3) ? substr($formfield, 0, -3) : $formfield));
+          $label = $this->getWidgetSchema()->getFormFormatter()->translate($label);
+          $widget = new sfWidgetFormInputText([], ['placeholder' => $label]);
           $validator = new sfValidatorString();
       }
       if (isset($widget)) {

@@ -197,6 +197,12 @@ class EditPetitionForm extends PetitionFieldsForm {
         ), array(
         )));
         $this->setValidator('openeci_counter_override', new sfValidatorChoice(array('choices' => array(0, 1), 'required' => true)));
+        $this->setWidget('openeci_skip_first_step', new sfWidgetFormChoice([
+          'choices' => [1 => 'Show ECI form first', 0 => 'Show email sign-up form first'],
+          'label' => 'Prioritise openECI or email sign-ups?'
+        ],[]));
+        $this->setValidator('openeci_skip_first_step', new sfValidatorChoice(array('choices' => array(0, 1), 'required' => true)));
+        $this->setDefault('openeci_skip_first_step', 0);
     } else {
       unset($this['openeci_url'], $this['openeci_channel'], $this['openeci_counter_override']);
     }

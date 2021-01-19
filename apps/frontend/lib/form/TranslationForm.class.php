@@ -313,6 +313,12 @@ class TranslationForm extends BasePetitionTextForm {
     $this->setWidget('subscribe_text', new sfWidgetFormInput(array('label' => 'Keep-me-posted checkbox'), array('size' => 90, 'class' => 'large', 'placeholder' => 'Leave this field empty to use standard texts.')));
     $this->getWidgetSchema()->setHelp('subscribe_text', 'You may customise the text of the keep-me-posted checkbox. Leave this field empty to use standard texts. You may use the following keywords to include the name or email of the respective data owner: #DATA-OFFICER-NAME#, #DATA-OFFICER-ORGA#, #DATA-OFFICER-EMAIL#');
 
+    $this->setWidget('tyf_title', new sfWidgetFormInput(
+      ['label' => 'Tell your friends heading on thank-you-page'],
+      ['size' => 90, 'class' => 'large', 'placeholder' => 'Leave this field empty to use standard texts.']
+    ));
+    $this->getWidgetSchema()->setHelp('tyf_title', 'You may customise the "Tell your friends" heading above the social media buttons (optional). Leave this field empty to use standard texts. Note that not all widget layouts (themes) display this heading.');
+
     if ($petition->getThankYouEmail() == Petition::THANK_YOU_EMAIL_YES) {
       $this->setWidget('thank_you_email_subject', new sfWidgetFormInput(array('label' => 'Thank-You Email Subject'), array('size' => 90, 'class' => 'large')));
       $this->setWidget('thank_you_email_body', new sfWidgetFormTextarea(array('label' => 'Thank-You Email Body'), array(
@@ -371,6 +377,9 @@ class TranslationForm extends BasePetitionTextForm {
 
     $this->setWidget('social_share_text', new sfWidgetFormInput(array('label' => 'Twitter message'), array('size' => 90, 'class' => 'large', 'placeholder' => 'Leave this field empty to use standard texts.')));
     $this->getWidgetSchema()->setHelp('social_share_text', 'Optional keywords: #TITLE#, #WIDGET-HEADING#. Keep the text short. URL is appended automatically.');
+
+    $this->setWidget('additional_link_url', new sfWidgetFormInput(array('label' => 'Additional link URL (optional)'), array('size' => 90, 'class' => 'large', 'placeholder' => 'http://www.example/com/-language-/paper-forms')));
+    $this->setWidget('additional_link_label', new sfWidgetFormInput(array('label' => 'Additional link text label (optional)'), array('size' => 90, 'class' => 'large', 'placeholder' => 'Example: "Print paper forms to collect signatures"')));
   }
 
   public function processValues($values) {
