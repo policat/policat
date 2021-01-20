@@ -294,3 +294,15 @@ img.form-control {
 .form-check {
   margin-bottom: 1em;
 }
+
+td.signers-list {
+  span {
+    &:after {
+      display: inline;
+      content: ', ';
+    }
+    &:last-child:after {
+      content: '';
+    }
+  }
+}
