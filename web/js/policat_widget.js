@@ -1398,7 +1398,9 @@ $(document).ready(function($) {
 			}
 			return b[i]? -1:0;
 		}
-
+		$('.openECI .eci-notice label').click(function() {
+			resize();
+		});
 		if (isOpenECI) {
 			window.addEventListener('message', function(event) {
 				if (typeof event.data === 'string') {

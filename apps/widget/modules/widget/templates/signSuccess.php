@@ -362,6 +362,13 @@ if (is_array($target_selectors)) {
                               <div class="count-text count-text-bottom"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
                               <div class="count-text count-text-alt"><span class="count-count"><?php echo __($count_translation) ?></span><span>.</span> <span class="count-target"><?php echo __('Target #') ?></span></div>
                             </div>
+                            <div class="eci-notice">
+                              <label>
+                                <span><?php echo __('Why do I have to share all this information?')?></span>
+                                <input type="checkbox" class="no-checkbox-wrap">
+                                <p><?php echo __('Your national government decides what information you need to provide for a European Citizens\' Initiative so that your signature can be validated and counted. Therefore, please fill in all lines. (Your data will be transmitted securely and encrypted. Your data can only be accessed by national authorities for verification purposes.)') ?></p>
+                              </label>
+                            </div>
                           <?php endif ?>
                         </div>
                         <?php endif ?>
