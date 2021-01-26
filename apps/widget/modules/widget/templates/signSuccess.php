@@ -352,6 +352,17 @@ if (is_array($target_selectors)) {
                         </div>
                         <?php if ($openECI): ?>
                         <div class="openECI" id="openECIParent">
+                          <?php if (!$disabled):
+                            $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
+                            ?>
+                            <div id="count" class="count count--eci<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
+                              <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                              <div class="count-text count-target-top count-target-number"></div>
+                              <div class="count-bar"><div></div><span></span></div>
+                              <div class="count-text count-text-bottom"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                              <div class="count-text count-text-alt"><span class="count-count"><?php echo __($count_translation) ?></span><span>.</span> <span class="count-target"><?php echo __('Target #') ?></span></div>
+                            </div>
+                          <?php endif ?>
                         </div>
                         <?php endif ?>
                         <?php if ($petition->getShowEmbed()): ?>
