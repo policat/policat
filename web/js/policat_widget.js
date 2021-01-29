@@ -181,6 +181,7 @@ $(document).ready(function($) {
 		}
 
 		function openECIiframeLoader(prefill) {
+			renderCounter('eci');
 			if (!openECIiframeLoaded) {
 				var params = '';
 				if (prefill) {
@@ -231,7 +232,7 @@ $(document).ready(function($) {
 				ifr.setAttribute('marginwidth', '0');
 				ifr.setAttribute('scrolling', 'yes');
 
-				document.getElementById('openECIParent').prepend(ifr);
+				document.getElementById('openECIParent').append(ifr);
 
 				iFrameResize({ checkOrigin: false, onResized: openECIiFrameResized }, '#openECI');
 				openECIiframeLoaded = true;
@@ -409,7 +410,7 @@ $(document).ready(function($) {
 		function renderCounter(context) {
 			var hash_parts = window.location.hash.substring(1).split('!');
 			var count = decodeURIComponent(hash_parts[2]);
-			var countId = 'thankyou' === context ? '#count.count--thankyou': '#count.count--sign';
+			var countId = 'thankyou' === context ? '#count.count--thankyou': 'eci' === context ? '#count.count--eci' : '#count.count--sign';
 			var increaseCount = 'thankyou' === context;
 			if (count) {
 				var c = count.split('-');
@@ -1397,7 +1398,9 @@ $(document).ready(function($) {
 			}
 			return b[i]? -1:0;
 		}
-
+		$('.openECI .eci-notice label').click(function() {
+			resize();
+		});
 		if (isOpenECI) {
 			window.addEventListener('message', function(event) {
 				if (typeof event.data === 'string') {

@@ -352,6 +352,24 @@ if (is_array($target_selectors)) {
                         </div>
                         <?php if ($openECI): ?>
                         <div class="openECI" id="openECIParent">
+                          <?php if (!$disabled):
+                            $count_translation = (in_array($petition->getKind(), [Petition::KIND_EMAIL_TO_LIST, Petition::KIND_PLEDGE]) && $petition->getShowEmailCounter() == Petition::SHOW_EMAIL_COUNTER_YES) ? '# emails sent' : '# Participants';
+                            ?>
+                            <div id="count" class="count count--eci<?php echo $petition->getShowTarget() ? '' : ' count-hide-target' ?>">
+                              <div class="count-text count-text-top"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                              <div class="count-text count-target-top count-target-number"></div>
+                              <div class="count-bar"><div></div><span></span></div>
+                              <div class="count-text count-text-bottom"><span class="count-count"><?php echo __($count_translation) ?></span><span class="count-target"><?php echo __('Target #') ?></span></div>
+                              <div class="count-text count-text-alt"><span class="count-count"><?php echo __($count_translation) ?></span><span>.</span> <span class="count-target"><?php echo __('Target #') ?></span></div>
+                            </div>
+                            <div class="eci-notice">
+                              <label>
+                                <span><?php echo __('Why do I have to share all this information?')?></span>
+                                <input type="checkbox" class="no-checkbox-wrap">
+                                <p><?php echo __('Your national government decides what information you need to provide for a European Citizens\' Initiative so that your signature can be validated and counted. Therefore, please fill in all lines. (Your data will be transmitted securely and encrypted. Your data can only be accessed by national authorities for verification purposes.)') ?></p>
+                              </label>
+                            </div>
+                          <?php endif ?>
                         </div>
                         <?php endif ?>
                         <?php if ($petition->getShowEmbed()): ?>
