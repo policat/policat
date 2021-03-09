@@ -281,3 +281,21 @@ label {
 a.back {
 	display: none;
 }
+
+.openECI {
+	.eci-notice {
+		span {
+			font-size: 18px;
+			font-weight: normal;
+			&::before {
+				content: "\00BB";
+				margin-right: 5px;
+				font-size: 1.2em
+			}
+		}
+		p {
+			font-size: 14px;
+			line-height: 21px;
+		}
+	}
+}
