@@ -19,15 +19,15 @@
 		"grunt-contrib-less": "^1.4.1",
 		"grunt-contrib-uglify": "^3.0.1",
 		"grunt-exec": "^1.0.1",
-		"jquery": "^3.1.1",
+		"jquery": "^3.6.0",
 		"jquery-1.10": "https://github.com/jquery/jquery/archive/1.10.2.tar.gz",
 		"jscolor-picker": "^2.0.4",
 		"markItUp!": "git+https://github.com/markitup/1.x.git",
 		"napa": "^3.0.0",
-		"node-sass": "^4.12.0",
+		"node-sass": "^4.14.1",
 		"popper.js": "^1.14.4",
 		"select2": "^3.4.5",
-		"showdown": "^1.4.3",
+		"showdown": "^1.9.1",
 		"tether": "^1.4.6"
 	},
 	"dependencies": {}
