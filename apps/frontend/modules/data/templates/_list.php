@@ -92,6 +92,11 @@ use_helper('Number');
                 The participant list exports contain hashes to compare or deduplicate signings with other lists. Input: e-mail address, utf-8 encoded, white spaces
                 removed front and tail, all letters converted to lowercase. Function: bcrypt, parameters cost=10 and salt='POLICAT1234567890ABCDE'
             </p>
+            <p>
+            <?php if (isset($full_download_url)): ?>
+              <a class="btn btn-primary btn-sm post" href="<?php echo $full_download_url ?>">Direct Download</a>
+            <?php endif ?>
+            </p>
             </div>
         </div>
       <?php endif ?>

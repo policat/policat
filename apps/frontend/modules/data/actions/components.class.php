@@ -140,6 +140,36 @@ class dataComponents extends policatComponents {
         $this->incremental_downloads = DownloadTable::getInstance()->queryIncrementalDownloads($this->petition, $this->subscriptions)->execute();
       }
     }
+
+    switch ($download_route) {
+      case 'data_campaign_download':
+        $audience = "/campaign/{$download_route_id}/";
+        $fullDownloadUrl = "/api/v3/campaign/{$download_route_id}/participants/export";
+        break;
+      case 'data_petition_download':
+        $audience = "/petition/{$download_route_id}/";
+        $fullDownloadUrl = "/api/v3/petition/{$download_route_id}/participants/export";
+        break;
+      case 'data_widget_download':
+        $audience = "/widget/{$download_route_id}/";
+        $fullDownloadUrl = "/api/v3/widget/{$download_route_id}/participants/export";
+        break;
+      default:
+        $audience = '';
+        $fullDownloadUrl = '';
+    }
+    $key = sfConfig::get('app_hashes_jwt');
+    $payload = [
+      "iss" => "https://policat.org",
+      "aud" => $audience . ' ' . json_encode(['subscriptions' => $this->subscriptions]),
+      "iat" => (new DateTime())->getTimestamp(),
+    ];
+    $jwt = \Firebase\JWT\JWT::encode($payload, $key, 'HS256');
+    $decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($key, 'HS256'));
+    $this->full_download_url = $fullDownloadUrl . '?' . http_build_query([
+        's' => $this->subscriptions ? 1 : 0,
+        'token' => $jwt
+    ]);
   }
 
 }
