@@ -35,9 +35,9 @@ FROM webvariants/php:7.2-fpm-alpine
 COPY composer.json composer.lock /app/
 
 RUN composer.phar install --no-ansi --prefer-dist --optimize-autoloader && rm -rf /root/.composer
-RUN cd api && composer.phar install --no-ansi --prefer-dist --optimize-autoloader && rm -rf /root/.composer
 
 COPY ./ /app/
+RUN cd api && composer.phar install --no-ansi --prefer-dist --optimize-autoloader && rm -rf /root/.composer
 
 RUN cd config && \
     ln -s ../data/config/app.yml app.yml && \
