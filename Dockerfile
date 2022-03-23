@@ -44,6 +44,7 @@ RUN cd config && \
     ln -s ../data/config/factories.yml factories.yml && \
     ln -s ../data/config/properties.ini properties.ini && \
     ln -s ../data/config/settings.yml settings.yml && \
+    ln -s ../data/config/.env.local api/.env.local && \
     cd ../web && \
     ln -s ../data/images images && \
     cd ../apps/widget && \
