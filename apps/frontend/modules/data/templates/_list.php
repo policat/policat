@@ -7,7 +7,7 @@ use_helper('Number');
       <?php echo $form ?>
       <input type="hidden" name="s" value="<?php echo $subscriptions ? 1 : 0 ?>" />
       <button class="btn btn-primary btn-sm" type="submit">Filter</button>
-      <button class="filter_reset btn btn-sm">Reset filter</button>
+      <button class="filter_reset btn btn-secondary btn-sm">Reset filter</button>
   </form>
 <?php endif ?>
 <div id="data">
@@ -84,9 +84,8 @@ use_helper('Number');
       <?php if (isset($count)): ?>
         <div class="card bg-light mb-3">
             <div class="card-body">
-            <?php if (isset($download_url)): ?>
-              <h3>Download data (utf-8 encoded .csv)</h3>
-              <a class="btn btn-primary btn-sm ajax_link post" href="<?php echo $download_url ?>">Download</a>
+            <?php if (isset($full_download_url)): ?>
+              <h3>Download all data (utf-8 encoded CSV)</h3>
             <?php endif ?>
             <p class="top15 bottom0">
                 The participant list exports contain hashes to compare or deduplicate signings with other lists. Input: e-mail address, utf-8 encoded, white spaces
@@ -94,7 +93,7 @@ use_helper('Number');
             </p>
             <p>
             <?php if (isset($full_download_url)): ?>
-              <a class="btn btn-primary btn-sm post" href="<?php echo $full_download_url ?>">Direct Download</a>
+              <a class="btn btn-primary btn-sm post" href="<?php echo $full_download_url ?>">Download</a>
             <?php endif ?>
             </p>
             </div>

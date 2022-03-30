@@ -127,7 +127,8 @@ class dataComponents extends policatComponents {
             'id' => $download_route_id
         )) . '?' . http_build_query($download_params, null, '&');
 
-      if (isset($this->petition) && $download_route === 'data_petition_download') {
+      // #242 Disable incremental download
+      /*if (isset($this->petition) && $download_route === 'data_petition_download') {
         $this->new_increment = PetitionSigningTable::getInstance()->countNewIncrement($this->petition, $this->subscriptions);
 
         $this->download_incremental_url = $this->getContext()->getRouting()->generate($download_route, array(
@@ -138,7 +139,7 @@ class dataComponents extends policatComponents {
             ), null, '&');
 
         $this->incremental_downloads = DownloadTable::getInstance()->queryIncrementalDownloads($this->petition, $this->subscriptions)->execute();
-      }
+      }*/
     }
 
     switch ($download_route) {
@@ -165,7 +166,6 @@ class dataComponents extends policatComponents {
       "iat" => (new DateTime())->getTimestamp(),
     ];
     $jwt = \Firebase\JWT\JWT::encode($payload, $key, 'HS256');
-    $decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($key, 'HS256'));
     $this->full_download_url = $fullDownloadUrl . '?' . http_build_query([
         's' => $this->subscriptions ? 1 : 0,
         'token' => $jwt
