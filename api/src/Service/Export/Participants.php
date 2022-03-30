@@ -65,14 +65,14 @@ class Participants
   {
 
     $resultSetMapping = new ResultSetMapping();
-    foreach ($this->getFields() as $field) {
+    foreach ($this->getFields($type) as $field) {
       $resultSetMapping->addScalarResult($field, $field);
     }
 
     $sql = $this->getSqlforType($type);
 
     // write header
-    yield array_keys($this->getFields());
+    yield array_keys($this->getFields($type));
 
     $offset = 0;
     do {
@@ -92,15 +92,17 @@ class Participants
 
   private function getSqlforType($type)
   {
-    $selectFields = join(',', $this->getFields());
+    $selectFields = join(',', $this->getFields($type));
+
+    $whereSubscriptions = $this->getExportSubscriptions() ? ' AND subscribe=1 AND verified=1': '';
 
     switch ($type) {
       case 'campaign':
-        return "SELECT $selectFields FROM petition_signing WHERE campaign_id = :identifier ORDER BY id ASC LIMIT :limit OFFSET :offset";
+        return "SELECT $selectFields FROM petition_signing WHERE campaign_id = :identifier {$whereSubscriptions} ORDER BY id ASC LIMIT :limit OFFSET :offset";
       case 'petition':
-        return "SELECT $selectFields FROM petition_signing WHERE petition_id = :identifier ORDER BY id ASC LIMIT :limit OFFSET :offset";
+        return "SELECT $selectFields FROM petition_signing WHERE petition_id = :identifier {$whereSubscriptions} ORDER BY id ASC LIMIT :limit OFFSET :offset";
       case 'widget':
-        return "SELECT $selectFields FROM petition_signing WHERE widget_id = :identifier ORDER BY id ASC LIMIT :limit OFFSET :offset";
+        return "SELECT $selectFields FROM petition_signing WHERE widget_id = :identifier {$whereSubscriptions} ORDER BY id ASC LIMIT :limit OFFSET :offset";
     }
 
     return '';
@@ -119,9 +121,11 @@ class Participants
     return $row;
   }
 
-  private function getFields(): array
+  private function getFields(string $type): array
   {
     $allExportFields = [
+      'action_id' => 'petition_id',
+      'widget_id' => 'widget_id',
       'created_at' => 'created_at',
       'updated_at' => 'updated_at',
       'status' => 'status',
@@ -142,8 +146,12 @@ class Participants
       'comment' => 'comment',
       'subscribe' => 'subscribe',
       'thank you page shown' => 'ref_shown',
+      'ref' => 'ref',
     ];
 
+    if ($type !== 'campaign') {
+      unset ($allExportFields['action_id']);
+    }
     if ($this->getExportSubscriptions()) {
       unset ($allExportFields['subscribe']);
     } else {
