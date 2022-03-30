@@ -68,7 +68,7 @@ class ExportController extends AbstractController
   {
     $token = $request->query->get('token');
     $decodedToken = (array) JWT::decode($token, new Key($this->getParameter('jwtSecretKey'), 'HS256'));
-    if ($decodedToken['iat'] < (new \DateTime('now - 5 minutes'))->getTimestamp()) {
+    if ($decodedToken['iat'] < (new \DateTime('now - 15 minutes'))->getTimestamp()) {
       throw $this->createAccessDeniedException('The token has expired');
     }
     $audience = explode(' ', $decodedToken['aud']);
