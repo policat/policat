@@ -589,19 +589,21 @@ $(document).ready(function($) {
 						});
 					}
 					var option = $('<option></option>');
+					select.append(option);
 					if (selector.id === 'contact') {
 						select.addClass('change_contact');
-					} else {
-						select.append(option);
 					}
 					option.text(first ? '--' + t_sel + '--' : t_sel_all).attr('value', (first /* && target_selectors.length !== 1 */) ? '' : 'all');
 					if (selector['choices'] != undefined) {
 						var is_typefield = selector['typfield'] != undefined && selector['typfield'];
 						var is_contact = selector['id'] != undefined && selector['id'] === 'contact';
 						if (is_contact) {
-							option.text(t_sel_all);
-							select.addClass('not_required');
-							$('#petition_signing_ts_1').addClass('not_required');
+							//option.text(t_sel_all);
+							option.attr('disabled', 'disabled');
+							option.attr('selected', 'selected');
+							option.attr('hidden', 'hidden');
+							//select.addClass('not_required');
+							//$('#petition_signing_ts_1').addClass('not_required');
 						}
 						select.attr('id', 'petition_signing_ts_1_copy');
 						select.attr('name', 'petition_signing_[ts_1]');
