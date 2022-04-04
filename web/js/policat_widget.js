@@ -589,9 +589,10 @@ $(document).ready(function($) {
 						});
 					}
 					var option = $('<option></option>');
-					select.append(option);
 					if (selector.id === 'contact') {
 						select.addClass('change_contact');
+					} else {
+						select.append(option);
 					}
 					option.text(first ? '--' + t_sel + '--' : t_sel_all).attr('value', (first /* && target_selectors.length !== 1 */) ? '' : 'all');
 					if (selector['choices'] != undefined) {
