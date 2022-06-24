@@ -15,6 +15,9 @@ all:
   recaptcha:
     secret: ~
     public: ~
+    enterprise_sitekey: '-develop-can-be-unsecure-'
+    enterprise_project: '-develop-can-be-unsecure-'
+
 
   web:
     url: http://localhost/

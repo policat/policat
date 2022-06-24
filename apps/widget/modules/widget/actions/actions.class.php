@@ -8,6 +8,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+use Google\Cloud\RecaptchaEnterprise\V1\RecaptchaEnterpriseServiceClient;
+
 /**
  * widget actions.
  *
@@ -189,6 +191,29 @@ class widgetActions extends policatActions
         $this->form->bind($request->getPostParameter($this->form->getName()));
         if ($this->form->isValid())
         {
+          $client = new RecaptchaEnterpriseServiceClient([
+            'credentials' => sfConfig::get('app_recaptcha_enterprise_keyfile')
+          ]);
+          $project = RecaptchaEnterpriseServiceClient::projectName(sfConfig::get('app_recaptcha_enterprise_project'));
+
+          $assessmentRequest = new \Google\Cloud\RecaptchaEnterprise\V1\Assessment([
+            'event' => new \Google\Cloud\RecaptchaEnterprise\V1\Event([
+              'token' => $request->getPostParameter('g-recaptcha-response'),
+              'site_key' => sfConfig::get('app_recaptcha_enterprise_sitekey'),
+              'expected_action' => 'submit'
+            ])
+          ]);
+          $assessmentResponse = $client->createAssessment($project, $assessmentRequest);
+          $score = $assessmentResponse ? $assessmentResponse->getRiskAnalysis()->getScore() : 2;
+          $valid = $assessmentResponse && $assessmentResponse->getTokenProperties()->getValid();
+
+          // allow testing invalid captcha handling
+          $signingRequestParameter = $request->getPostParameter('petition_signing');
+          $signingEmail = $signingRequestParameter['email'] ?? '';
+          if (!$valid || ($score < 0.5) || false !== stripos($signingEmail, 'test_invalid_captcha')) {
+            return;
+          }
+
           $this->form->save();
           if (sfConfig::get('sf_environment') === 'stress') // ONLY FOR STRESS TEST !!!
             $extra['code'] = $this->form->getObject()->getId() . '-' . $this->form->getObject()->getValidationData();

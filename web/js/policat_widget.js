@@ -1,7 +1,7 @@
 jscolor.dir = '/js/dist/';
 
 $(document).ready(function($) {
-	(function($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI) {
+	(function($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI, recaptchaSiteKey) {
 		var widget = $('#widget');
 		var widget_left = $('#widget-left');
 		var widget_right = $('#widget-right');
@@ -1117,58 +1117,73 @@ $(document).ready(function($) {
 						window.open(form.attr('action') + '?' + form.serialize(), '_blank');
 						isClick = false;
 					} else {
-						// policat form
-						var refName = 'ref';
-						switch (formId) {
-							case 'sign':
-								refName = 'petition_signing[ref]';
-								$('#petition_signing_email_subject_copy, #petition_signing_email_body_copy').attr('disabled', 'disabled');
-								break;
-							case 'embed':
-								refName = 'widget[ref]';
-								break;
-						}
-						$.post(window.location.href.split('#', 1)[0], form.serialize() + '&' + refName + '=' + ref, function(data) {
+						grecaptcha.enterprise.ready(function() {
+							// policat form
+							var refName = 'ref';
 							switch (formId) {
 								case 'sign':
-									window.parent.postMessage('policat_signed;' + JSON.stringify({iframe: iframe_no, widget: widget_id}) , '*');
-									hasSign = true;
-									if (isOpenECI && !openECIsigned) {
-										show_openECI();
-									} else {
-										$('.openECI-message').remove();
-										show_thankyou();
-									}
-									$('#widget-right .thankyou .form_message').text('');
-									for (var error in data.errors) {
-										$('#widget-right .thankyou .form_message').append($('<div></div>').addClass('error-' + error + '-' + data.errors[error].code).text(data.errors[error].message));
-									}
-									widget.addClass('has_sign');
-									resize();
-									window.parent.postMessage('policat_scroll;' + iframe_no + ';0;0', '*');
-									if (isOpenECI && data.extra.ref_id && data.extra.ref_code) {
-										refId = data.extra.ref_id;
-										refCode = data.extra.ref_code;
-									}
+									var recaptchaToken = grecaptcha.enterprise.execute(recaptchaSiteKey, {action: 'submitSign'});
+									recaptchaToken.then(function (token) {
+										form.append("<input type='hidden' name='g-recaptcha-response' value='"+token+"'/>");
+										refName = 'petition_signing[ref]';
+										$('#petition_signing_email_subject_copy, #petition_signing_email_body_copy').attr('disabled', 'disabled');
+										sendForm();
+									})
+
 									break;
 								case 'embed':
-									if (data.isValid) {
-										$('#embed_markup').val(data.extra.markup);
-										$('.embed-code').show();
-										$('#embed button').hide();
-										$('#embed input, #embed select, #embed2 input, #embed2 textarea').attr('disabled', 'disabled');
-										resize();
-									} else {
-										if ('landing_url' in data.errors) {
-											$('#widget_landing_url_copy').parent().addClass('form-error');
-										}
-									}
-									break;
-								default:
+									refName = 'widget[ref]';
+									sendForm();
 									break;
 							}
-							isClick = false;
-						}, "json");
+
+							function sendForm() {
+								$.post(window.location.href.split('#', 1)[0], form.serialize() + '&' + refName + '=' + ref, function (data) {
+									switch (formId) {
+										case 'sign':
+											window.parent.postMessage('policat_signed;' + JSON.stringify({
+												iframe: iframe_no,
+												widget: widget_id
+											}), '*');
+											hasSign = true;
+											if (isOpenECI && !openECIsigned) {
+												show_openECI();
+											} else {
+												$('.openECI-message').remove();
+												show_thankyou();
+											}
+											$('#widget-right .thankyou .form_message').text('');
+											for (var error in data.errors) {
+												$('#widget-right .thankyou .form_message').append($('<div></div>').addClass('error-' + error + '-' + data.errors[error].code).text(data.errors[error].message));
+											}
+											widget.addClass('has_sign');
+											resize();
+											window.parent.postMessage('policat_scroll;' + iframe_no + ';0;0', '*');
+											if (isOpenECI && data.extra.ref_id && data.extra.ref_code) {
+												refId = data.extra.ref_id;
+												refCode = data.extra.ref_code;
+											}
+											break;
+										case 'embed':
+											if (data.isValid) {
+												$('#embed_markup').val(data.extra.markup);
+												$('.embed-code').show();
+												$('#embed button').hide();
+												$('#embed input, #embed select, #embed2 input, #embed2 textarea').attr('disabled', 'disabled');
+												resize();
+											} else {
+												if ('landing_url' in data.errors) {
+													$('#widget_landing_url_copy').parent().addClass('form-error');
+												}
+											}
+											break;
+										default:
+											break;
+									}
+									isClick = false;
+								}, "json");
+							}
+						});
 					}
 				}
 				else {
@@ -1440,5 +1455,5 @@ $(document).ready(function($) {
 			});
 		}
 
-	})($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI);
+	})($, widget_id, window, Math, target_selectors, CT_extra, t_sel, t_sel_all, petition_id, numberSeparator, isOpenECI, srcOpenECI, initialLoadECI, recaptchaSiteKey);
 });

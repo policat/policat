@@ -10,7 +10,8 @@
         "ezyang/htmlpurifier": "^4.8",
         "michelf/php-markdown": "^1.6",
         "inlinestyle/inlinestyle": "^1.2",
-        "firebase/php-jwt": "^6.0"
+        "firebase/php-jwt": "^6.0",
+        "google/cloud-recaptcha-enterprise": "^1.2"
     },
     "config": {
         "vendor-dir": "lib/vendor"

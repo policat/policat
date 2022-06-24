@@ -20,6 +20,7 @@
         <meta name="language" content="<?php echo $lang ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <?php include_title() ?>
+        <script src="https://www.google.com/recaptcha/enterprise.js?render=<?php echo sfConfig::get('app_recaptcha_enterprise_sitekey')?>"></script>
         <script type="text/javascript">
       var widget_id = <?php echo $widget['id'] ?>;
 <?php
@@ -62,7 +63,8 @@ if (is_array($target_selectors)) {
 <?php endif ?>
       var isOpenECI  = <?php echo json_encode($openECI) ?>;
       var srcOpenECI = '<?php echo Util::enc($petition->getOpeneciURL()) ?>?channel=<?php echo Util::enc($petition->getOpeneciChannel()) ?>&lang=<?php echo $lang ?>';
-      var initialLoadECI = <?php echo $petition->getOpeneciSkipFirstStep() ?>
+      var initialLoadECI = <?php echo $petition->getOpeneciSkipFirstStep() ?>;
+      var recaptchaSiteKey = '<?php echo sfConfig::get('app_recaptcha_enterprise_sitekey')?>';
         </script>
         <?php if (!UtilTheme::removeClassicCss($widget, $petition)): ?><link rel="stylesheet" type="text/css" href="/css/dist/policat_widget.css?<?php echo filemtime(sfConfig::get('sf_web_dir') . '/css/dist/policat_widget.css') ?>" /><?php endif ?>
         <?php if ($font_css_file): ?><link href="<?php echo $font_css_file ?>" rel="stylesheet" type="text/css" /><?php endif ?>
