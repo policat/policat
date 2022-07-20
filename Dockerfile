@@ -45,6 +45,7 @@ RUN cd config && \
     ln -s ../data/config/factories.yml factories.yml && \
     ln -s ../data/config/properties.ini properties.ini && \
     ln -s ../data/config/settings.yml settings.yml && \
+    ln -s ../data/config/recaptcha_credentials.json recaptcha_credentials.json && \
     cd ../api && \
     ln -s ../data/config/.env.local .env.local && \
     cd ../web && \
