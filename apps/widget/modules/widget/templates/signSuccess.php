@@ -330,17 +330,17 @@ if (is_array($target_selectors)) {
                                         <label for="petition_signing_subscribe"><?php echo __('Keep me posted on this and similar campaigns.') ?></label>
                                         <span class="checkbox"><input class="required" type="checkbox" name="petition_signing[subscribe]" value="1" id="petition_signing_subscribe"></span>-->
                                     </div>
-                                    <div class="grecaptcha-disclaimer">
-                                      This form is protected by reCAPTCHA and the Google
-                                      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and
-                                      <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.
-                                    </div>
                                 </fieldset>
                                 <div class="submit-sign-container">
                                     <button type="button" class="submit submit-sign submit-no-subscribe"><span class="font-size-auto"><?php echo strtr(__($petition->getLabel(PetitionTable::LABEL_BUTTON)), array(' ' => '&nbsp;')) ?></span></button>
                                     <?php if ($openECI): ?>
                                         <button type="button" class="submit submit-sign submit-subscribe"><span class="font-size-auto-subscribe"><?php echo strtr(__($petition->getLabel(PetitionTable::LABEL_BUTTON_SUBSCRIBE)), array(' ' => '&nbsp;')) ?></span></button>
                                     <?php endif ?>
+                                    <div class="grecaptcha-disclaimer">
+                                      This form is protected by reCAPTCHA and the Google
+                                      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and
+                                      <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.
+                                    </div>
                                 </div>
                                 <?php if ($openECI): ?>
                                 <div class="go-to-eci-form">
