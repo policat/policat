@@ -92,14 +92,22 @@ input, textarea {
     }
   }
 }
-.widget-right .privacy-no-check label {
-  display: block;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: 0.01em;
-  margin-left: 5px;
-  margin-top: 0;
-  padding: 0;
+.widget-right {
+  .privacy-no-check label {
+    display: block;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.01em;
+    margin-left: 5px;
+    margin-top: 0;
+    padding: 0;
+  }
+  .subscribe + .privacy-no-check {
+    padding-left: 50px;
+  }
+  .subscribe.subscribe-radio + .privacy-no-check {
+    padding-left: 0;
+  }
 }
 .form-row {
   padding: 0;
@@ -254,5 +262,14 @@ button.submit-sign {
         }
       }
     }
+  }
+}
+
+#petition_signing_country {
+  &:invalid {
+    color: #838383
+  }
+  option:first-child {
+    color: #838383
   }
 }

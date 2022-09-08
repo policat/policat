@@ -18,7 +18,7 @@
               <strong>Active subscription:</strong> <?php echo $quota->getName() ?><br />
               <div class="progress"><div class="progress-bar" role="progressbar" style="width: <?php echo $quota->getPercent() ?>%" aria-valuenow="<?php echo $quota->getPercent() ?>" aria-valuemin="0" aria-valuemax="100"></div></div>
               <?php echo format_number($quota->getEmailsRemaining()) ?> remaining
-              <p class="top5"><strong>Latest renew date:</strong> <?php echo format_date($quota->getEndAt(), 'yyyy-MM-dd') ?></p>
+              <p class="top5"><strong>Next renewal (latest):</strong> <?php echo format_date($quota->getEndAt(), 'yyyy-MM-dd') ?></p>
               <?php if ($admin): ?>
               <a class="btn btn-sm btn-danger ajax_link" href="<?php echo url_for('order_cancel_subscription', array('id' => $quota->getId())) ?>">Cancel subscription</a>
                 <?php endif ?>

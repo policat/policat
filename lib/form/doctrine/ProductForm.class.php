@@ -27,7 +27,7 @@ class ProductForm extends BaseProductForm {
     $this->getWidgetSchema()->setLabel('emails', 'E-mails total');
     $this->getWidgetSchema()->setLabel('price', 'Price (net)');
 
-    if (StoreTable::value(StoreTable::BILLING_SUBSCRIPTION_ENABLE)) {
+    if (false && StoreTable::value(StoreTable::BILLING_SUBSCRIPTION_ENABLE)) {
       $this->setWidget('subscription', new sfWidgetFormChoice(array(
           'choices' => array(0 => 'no', 1 => 'yes'),
           'label' => 'Subscription / Abo'

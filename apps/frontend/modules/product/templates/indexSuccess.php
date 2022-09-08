@@ -1,6 +1,6 @@
 <?php use_helper('Number') ?>
 <?php include_partial('dashboard/admin_tabs', array('active' => 'product'));
-$subscription = StoreTable::value(StoreTable::BILLING_SUBSCRIPTION_ENABLE); ?>
+$subscription = false && StoreTable::value(StoreTable::BILLING_SUBSCRIPTION_ENABLE); ?>
 <table class="table table-responsive-md table-bordered table-striped">
   <thead>
       <tr>

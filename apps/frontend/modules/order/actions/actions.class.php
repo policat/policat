@@ -72,7 +72,7 @@ class orderActions extends policatActions {
     $user = $order->getUser();
 
     $last_order = OrderTable::getInstance()->fetchLastOrder($campaign, $user);
-    if ($last_order) {
+    if (false) {
       $order->setFirstName($last_order->getFirstName());
       $order->setLastName($last_order->getLastName());
       $order->setOrganisation($last_order->getOrganisation());
