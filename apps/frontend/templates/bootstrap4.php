@@ -17,6 +17,16 @@
     include_title() ?>
     <link rel="shortcut icon" href="<?php echo public_path('favicon.ico') ?>" />
     <?php include_stylesheets() ?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-231655643-1">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-231655643-1');
+    </script>
   </head>
   <body>
     <?php include_component('d_home', 'menuB4', array('a' => $sf_user->isAuthenticated() ? 1 : 0, 'b' => $sf_user->hasCredential('homepage') ? 1 : 0)) ?>
