@@ -114,11 +114,7 @@
                     <a class="btn btn-large btn-primary ajax_link"
                         href="<?php echo url_for('paypal_pay', array('id' => $order->getId())) ?>">
                         <strong>Pay now</strong> &nbsp;
-                        <img alt="mastercard" src="/images_static/pay-mastercard.png" height="31" width="50" />
-                        <img alt="maestro" src="/images_static/pay-maestro.png" height="31" width="50" />
-                        <img alt="visa" src="/images_static/pay-visa.png" height="31" width="50" />
                         <img alt="paypal" src="/images_static/pay-paypal.png" height="31" width="50" />
-                        <img alt="direct debit" src="/images_static/pay-direct-debit.png" height="31" width="50" />
                     </a>
                     <div>
                         <strong>to activate the package immediately.</strong><br />
